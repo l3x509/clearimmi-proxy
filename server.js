@@ -204,5 +204,13 @@ app.delete('/api/case-status/:receiptNum', (req, res) => {
   const key = req.params.receiptNum.toUpperCase().replace(/[-\s]/g, '');
   res.json({ deleted: cache.delete(key), key });
 });
+app.get('/api/debug/:receiptNum', async (req, res) => {
+  const SCRAPERAPI_KEY = process.env.SCRAPERAPI_KEY;
+  const receiptNum = req.params.receiptNum.toUpperCase().replace(/[-\s]/g, '');
+  const targetUrl  = `https://egov.uscis.gov/case-status/api/cases/${receiptNum}`;
+  const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(targetUrl)}&country_code=us`;
+  const resp = await httpRequest(scraperUrl, { method: 'GET', headers: { 'Accept': 'application/json' } });
+  res.json({ httpStatus: resp.status, rawResponse: resp.text });
+});
 
 app.listen(PORT, () => console.log(`ClearImmi proxy v4 on :${PORT} (Node ${process.version}) — ScraperAPI: ${!!process.env.SCRAPERAPI_KEY}`));
