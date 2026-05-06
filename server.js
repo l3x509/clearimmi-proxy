@@ -1,8 +1,7 @@
 /**
  * ClearImmi — USCIS Case Status Proxy v5
- * Changes from v4:
- *   - USCIS JSON endpoint doesn't exist (Next.js 404). Back to HTML POST.
- *   - Uses ScraperAPI's structured POST API to send form data through residential IPs
+ * - Uses ScraperAPI GET proxy (residential IPs) to bypass USCIS cloud blocks
+ * - USCIS accepts receipt number as GET query param — no POST needed
  */
 
 const express   = require('express');
@@ -83,38 +82,23 @@ function httpRequest(url, options, body) {
   });
 }
 
-// ── USCIS fetch via ScraperAPI structured POST ────────────────────────────────
+// ── USCIS fetch via ScraperAPI GET proxy ──────────────────────────────────────
 const USCIS_URL = 'https://egov.uscis.gov/casestatus/mycasestatus.do';
 
 async function fetchUSCISStatus(receiptNum) {
   const SCRAPERAPI_KEY = process.env.SCRAPERAPI_KEY;
   if (!SCRAPERAPI_KEY) throw new Error('SCRAPERAPI_KEY environment variable is not set.');
 
-  const payload = JSON.stringify({
-    api_key     : SCRAPERAPI_KEY,
-    url         : USCIS_URL,
-    method      : 'POST',
-    body        : `appReceiptNum=${encodeURIComponent(receiptNum)}&initCaseSearch=CHECK+STATUS`,
-    country_code: 'us',
-    headers     : {
-      'Content-Type'   : 'application/x-www-form-urlencoded',
-      'Origin'         : 'https://egov.uscis.gov',
-      'Referer'        : USCIS_URL,
-      'User-Agent'     : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      'Accept'         : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      'Accept-Language': 'en-US,en;q=0.9',
-    },
+  // USCIS accepts receipt number as a GET param
+  // Route through ScraperAPI's standard GET proxy (residential IPs)
+  const uscisUrl   = `${USCIS_URL}?appReceiptNum=${encodeURIComponent(receiptNum)}&initCaseSearch=CHECK+STATUS`;
+  const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(uscisUrl)}&country_code=us`;
+
+  console.log(`[uscis] GET request for ${receiptNum} via ScraperAPI`);
+  const resp = await httpRequest(scraperUrl, {
+    method : 'GET',
+    headers: { 'Accept': 'text/html' },
   });
-
-  console.log(`[uscis] POSTing for ${receiptNum} via ScraperAPI`);
-
-  const resp = await httpRequest('https://api.scraperapi.com/', {
-    method : 'POST',
-    headers: {
-      'Content-Type'  : 'application/json',
-      'Content-Length': Buffer.byteLength(payload),
-    },
-  }, payload);
 
   console.log(`[uscis] ScraperAPI response: ${resp.status}`);
   if (resp.status !== 200) throw new Error(`ScraperAPI returned HTTP ${resp.status}`);
@@ -183,28 +167,14 @@ app.get('/health', (_req, res) => res.json({
   scraperapi: !!process.env.SCRAPERAPI_KEY,
 }));
 
-// Debug route — shows raw ScraperAPI/USCIS response (remove before production)
+// Debug route — shows raw USCIS response (remove before production)
 app.get('/api/debug/:receiptNum', async (req, res) => {
   try {
     const SCRAPERAPI_KEY = process.env.SCRAPERAPI_KEY;
     const receiptNum = req.params.receiptNum.toUpperCase().replace(/[-\s]/g, '');
-    const payload = JSON.stringify({
-      api_key     : SCRAPERAPI_KEY,
-      url         : USCIS_URL,
-      method      : 'POST',
-      body        : `appReceiptNum=${encodeURIComponent(receiptNum)}&initCaseSearch=CHECK+STATUS`,
-      country_code: 'us',
-      headers     : {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Origin'      : 'https://egov.uscis.gov',
-        'Referer'     : USCIS_URL,
-        'User-Agent'  : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-      },
-    });
-    const resp = await httpRequest('https://api.scraperapi.com/', {
-      method : 'POST',
-      headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(payload) },
-    }, payload);
+    const uscisUrl   = `${USCIS_URL}?appReceiptNum=${encodeURIComponent(receiptNum)}&initCaseSearch=CHECK+STATUS`;
+    const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(uscisUrl)}&country_code=us`;
+    const resp = await httpRequest(scraperUrl, { method: 'GET', headers: { 'Accept': 'text/html' } });
     res.json({ httpStatus: resp.status, rawResponse: resp.text.slice(0, 3000) });
   } catch (err) {
     res.status(500).json({ error: err.message });
