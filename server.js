@@ -1,13 +1,14 @@
 /**
- * ClearImmi — USCIS Case Status Proxy v5
- * - Uses ScraperAPI GET proxy (residential IPs) to bypass USCIS cloud blocks
- * - USCIS accepts receipt number as GET query param — no POST needed
+ * ClearImmi — USCIS Case Status Proxy v6
+ * Changes from v5:
+ *   - USCIS migrated to Next.js. Old mycasestatus.do is dead.
+ *   - New internal API endpoint: /csol-api/case-statuses/{receiptNumber}
+ *   - Returns JSON directly — no HTML parsing needed
  */
 
 const express   = require('express');
 const https     = require('https');
 const http      = require('http');
-const { parse } = require('node-html-parser');
 const cors      = require('cors');
 const rateLimit = require('express-rate-limit');
 
@@ -82,61 +83,58 @@ function httpRequest(url, options, body) {
   });
 }
 
-// ── USCIS fetch via ScraperAPI GET proxy ──────────────────────────────────────
-const USCIS_URL = 'https://egov.uscis.gov/casestatus/mycasestatus.do';
+// ── USCIS fetch via ScraperAPI ────────────────────────────────────────────────
+// USCIS Next.js internal API — what their own frontend calls on form submit
+const USCIS_API = 'https://egov.uscis.gov/csol-api/case-statuses';
 
 async function fetchUSCISStatus(receiptNum) {
   const SCRAPERAPI_KEY = process.env.SCRAPERAPI_KEY;
   if (!SCRAPERAPI_KEY) throw new Error('SCRAPERAPI_KEY environment variable is not set.');
 
-  // USCIS accepts receipt number as a GET param
-  // Route through ScraperAPI's standard GET proxy (residential IPs)
-  const uscisUrl   = `${USCIS_URL}?appReceiptNum=${encodeURIComponent(receiptNum)}&initCaseSearch=CHECK+STATUS`;
-  const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(uscisUrl)}&country_code=us`;
+  const targetUrl  = `${USCIS_API}/${receiptNum}`;
+  const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(targetUrl)}&country_code=us`;
 
-  console.log(`[uscis] GET request for ${receiptNum} via ScraperAPI`);
+  console.log(`[uscis] Fetching ${receiptNum} from csol-api via ScraperAPI`);
   const resp = await httpRequest(scraperUrl, {
     method : 'GET',
-    headers: { 'Accept': 'text/html' },
+    headers: {
+      'Accept'         : 'application/json',
+      'Referer'        : 'https://egov.uscis.gov/',
+      'Origin'         : 'https://egov.uscis.gov',
+    },
   });
 
   console.log(`[uscis] ScraperAPI response: ${resp.status}`);
-  if (resp.status !== 200) throw new Error(`ScraperAPI returned HTTP ${resp.status}`);
-
-  return parseUSCISHtml(resp.text, receiptNum);
-}
-
-// ── HTML parser ───────────────────────────────────────────────────────────────
-function parseUSCISHtml(html, receiptNum) {
-  const root        = parse(html);
-  const statusBlock = root.querySelector('.rows.text-center') || root.querySelector('.appointment-sec');
-
-  if (!statusBlock) {
-    const bodyText = root.querySelector('body')?.text ?? '';
-    if (/not found|unable to find|no case/i.test(bodyText)) {
-      return { found: false, receiptNum, status: null, description: null, formType: null, lastChecked: new Date().toISOString() };
-    }
-    console.warn('[parse] No status block found. HTML snippet:', html.slice(0, 800));
-    throw new Error('Unexpected USCIS response — could not find status block.');
-  }
-
-  const statusTitle = statusBlock.querySelector('h1')?.text?.trim() ?? null;
-  const description = statusBlock.querySelector('p')?.text?.trim()  ?? null;
-  const formMatch   = description?.match(/Form\s+(I-\d+[A-Z]?)/i);
-  const formType    = formMatch ? formMatch[1].toUpperCase() : null;
-
-  if (!statusTitle) {
+  if (resp.status === 404) {
     return { found: false, receiptNum, status: null, description: null, formType: null, lastChecked: new Date().toISOString() };
   }
+  if (resp.status !== 200) throw new Error(`ScraperAPI returned HTTP ${resp.status}`);
+
+  let data;
+  try {
+    data = JSON.parse(resp.text);
+  } catch (e) {
+    console.error('[parse] Raw response:', resp.text.slice(0, 500));
+    throw new Error('Could not parse USCIS response.');
+  }
+
+  // Handle case not found
+  if (!data || (!data.caseStatus && !data.receiptNumber)) {
+    return { found: false, receiptNum, status: null, description: null, formType: null, lastChecked: new Date().toISOString() };
+  }
+
+  const formMatch = (data.caseStatusDesc || data.description || '')
+    .match(/Form\s+(I-\d+[A-Z]?)/i);
 
   return {
     found      : true,
     receiptNum,
-    status     : statusTitle,
-    description,
-    formType,
+    status     : data.caseStatus     || data.status     || null,
+    description: data.caseStatusDesc || data.description || null,
+    formType   : formMatch ? formMatch[1].toUpperCase() : (data.formNum || data.form || null),
+    updateDate : data.updateDate || data.lastUpdated || null,
     lastChecked: new Date().toISOString(),
-    source     : 'uscis-html',
+    source     : 'uscis-csol-api',
   };
 }
 
@@ -167,14 +165,17 @@ app.get('/health', (_req, res) => res.json({
   scraperapi: !!process.env.SCRAPERAPI_KEY,
 }));
 
-// Debug route — shows raw USCIS response (remove before production)
+// Debug route — shows raw USCIS API response
 app.get('/api/debug/:receiptNum', async (req, res) => {
   try {
     const SCRAPERAPI_KEY = process.env.SCRAPERAPI_KEY;
     const receiptNum = req.params.receiptNum.toUpperCase().replace(/[-\s]/g, '');
-    const uscisUrl   = `${USCIS_URL}?appReceiptNum=${encodeURIComponent(receiptNum)}&initCaseSearch=CHECK+STATUS`;
-    const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(uscisUrl)}&country_code=us`;
-    const resp = await httpRequest(scraperUrl, { method: 'GET', headers: { 'Accept': 'text/html' } });
+    const targetUrl  = `${USCIS_API}/${receiptNum}`;
+    const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(targetUrl)}&country_code=us`;
+    const resp = await httpRequest(scraperUrl, {
+      method : 'GET',
+      headers: { 'Accept': 'application/json', 'Referer': 'https://egov.uscis.gov/' },
+    });
     res.json({ httpStatus: resp.status, rawResponse: resp.text.slice(0, 3000) });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -209,4 +210,4 @@ app.delete('/api/case-status/:receiptNum', (req, res) => {
   res.json({ deleted: cache.delete(key), key });
 });
 
-app.listen(PORT, () => console.log(`ClearImmi proxy v5 on :${PORT} — ScraperAPI: ${!!process.env.SCRAPERAPI_KEY}`));
+app.listen(PORT, () => console.log(`ClearImmi proxy v6 on :${PORT} — ScraperAPI: ${!!process.env.SCRAPERAPI_KEY}`));
