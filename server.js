@@ -1,213 +1,159 @@
-/**
- * ClearImmi — USCIS Case Status Proxy v6
- * Changes from v5:
- *   - USCIS migrated to Next.js. Old mycasestatus.do is dead.
- *   - New internal API endpoint: /csol-api/case-statuses/{receiptNumber}
- *   - Returns JSON directly — no HTML parsing needed
- */
+// src/server.js
+// ============================================================
+// BIZNIS BOSTON — Main Server
+// Express app, Meta webhook verification,
+// incoming message handler, health check.
+// ============================================================
 
-const express   = require('express');
-const https     = require('https');
-const http      = require('http');
-const cors      = require('cors');
-const rateLimit = require('express-rate-limit');
+import 'dotenv/config';
+import express        from 'express';
+import { config, validateConfig } from './config.js';
+import { extractMessage, sendMessage, markAsRead } from './whatsapp.js';
+import { processMessage, handleAudio }              from './agent.js';
+import { anonymizePhone }                           from './privacy.js';
+import { optOutUser, isUserOptedIn }                from './database.js';
+import { optOut }                                   from './messages.js';
 
-const app  = express();
-const PORT = process.env.PORT || 3001;
+// ── Validate environment on startup ───────────────────────
+validateConfig();
 
-if (!process.env.SCRAPERAPI_KEY) {
-  console.error('[startup] WARNING: SCRAPERAPI_KEY is not set. Requests will fail.');
-}
-
-app.set('trust proxy', 1);
-app.use(cors({ origin: process.env.ALLOWED_ORIGIN || '*', methods: ['GET', 'POST', 'DELETE'] }));
+const app = express();
 app.use(express.json());
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, max: 30,
-  standardHeaders: true, legacyHeaders: false,
-  message: { error: 'Too many requests. Please wait a few minutes and try again.' },
-});
-app.use('/api/', limiter);
+// ── Health Check ──────────────────────────────────────────
+// Railway and Meta both ping this to verify the server is alive
 
-// ── Cache ─────────────────────────────────────────────────────────────────────
-const cache = new Map();
-const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
-function getCached(key) {
-  const entry = cache.get(key);
-  if (!entry) return null;
-  if (Date.now() > entry.expiresAt) { cache.delete(key); return null; }
-  return entry.data;
-}
-function setCache(key, data) {
-  cache.set(key, { data, expiresAt: Date.now() + CACHE_TTL_MS });
-}
-
-// ── Validation ────────────────────────────────────────────────────────────────
-const VALID_PREFIXES = ['IOE','MSC','WAC','EAC','SRC','LIN','NBC','YSC','VSC','CSC','NSC','TSC'];
-const RECEIPT_RE = /^[A-Z]{3}\d{10}$/i;
-function validateReceipt(num) {
-  if (!num || typeof num !== 'string') return 'Receipt number is required.';
-  const clean = num.trim().toUpperCase().replace(/[-\s]/g, '');
-  if (!RECEIPT_RE.test(clean)) return 'Invalid format. Expected 3 letters + 10 digits (e.g. IOE0123456789).';
-  const prefix = clean.slice(0, 3);
-  if (!VALID_PREFIXES.includes(prefix)) return `Unknown prefix "${prefix}". Valid: ${VALID_PREFIXES.join(', ')}.`;
-  return null;
-}
-
-// ── HTTP helper ───────────────────────────────────────────────────────────────
-function httpRequest(url, options, body) {
-  return new Promise((resolve, reject) => {
-    const parsed = new URL(url);
-    const lib    = parsed.protocol === 'https:' ? https : http;
-    const req = lib.request({
-      hostname : parsed.hostname,
-      path     : parsed.pathname + parsed.search,
-      method   : options.method || 'GET',
-      headers  : options.headers || {},
-    }, (res) => {
-      if ([301, 302].includes(res.statusCode) && res.headers.location) {
-        const next = res.headers.location.startsWith('http')
-          ? res.headers.location
-          : `https://${parsed.hostname}${res.headers.location}`;
-        return httpRequest(next, { ...options, method: 'GET' }, null).then(resolve).catch(reject);
-      }
-      const chunks = [];
-      res.on('data', c => chunks.push(c));
-      res.on('end', () => resolve({ status: res.statusCode, headers: res.headers, text: Buffer.concat(chunks).toString('utf8') }));
-    });
-    req.on('error', reject);
-    req.setTimeout(25000, () => req.destroy(new Error('Request timed out after 25s')));
-    if (body) req.write(body);
-    req.end();
+app.get('/', (req, res) => {
+  res.json({
+    status:  'ok',
+    service: 'BIZNIS Boston',
+    version: '1.0.0',
+    time:    new Date().toISOString(),
   });
-}
+});
 
-// ── USCIS fetch via ScraperAPI ────────────────────────────────────────────────
-// USCIS Next.js internal API — what their own frontend calls on form submit
-const USCIS_API = 'https://egov.uscis.gov/csol-api/case-statuses';
+// ── Meta Webhook Verification ─────────────────────────────
+// Meta sends a GET request when you first set up the webhook.
+// Must respond with the challenge token to verify ownership.
 
-async function fetchUSCISStatus(receiptNum) {
-  const SCRAPERAPI_KEY = process.env.SCRAPERAPI_KEY;
-  if (!SCRAPERAPI_KEY) throw new Error('SCRAPERAPI_KEY environment variable is not set.');
+app.get('/webhook', (req, res) => {
+  const mode      = req.query['hub.mode'];
+  const token     = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
 
-  const targetUrl  = `${USCIS_API}/${receiptNum}`;
-  const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(targetUrl)}&country_code=us`;
-
-  console.log(`[uscis] Fetching ${receiptNum} from csol-api via ScraperAPI`);
-  const resp = await httpRequest(scraperUrl, {
-    method : 'GET',
-    headers: {
-      'Accept'         : 'application/json',
-      'Referer'        : 'https://egov.uscis.gov/',
-      'Origin'         : 'https://egov.uscis.gov',
-    },
-  });
-
-  console.log(`[uscis] ScraperAPI response: ${resp.status}`);
-  if (resp.status === 404) {
-    return { found: false, receiptNum, status: null, description: null, formType: null, lastChecked: new Date().toISOString() };
+  if (mode === 'subscribe' && token === config.meta.webhookVerifyToken) {
+    console.log('[Webhook] Verification successful');
+    res.status(200).send(challenge);
+  } else {
+    console.warn('[Webhook] Verification failed — token mismatch');
+    res.sendStatus(403);
   }
-  if (resp.status !== 200) throw new Error(`ScraperAPI returned HTTP ${resp.status}`);
+});
 
-  let data;
+// ── Incoming Message Handler ──────────────────────────────
+// Meta sends a POST for every incoming WhatsApp message.
+// MUST respond 200 immediately — Meta retries if no fast response.
+
+app.post('/webhook', async (req, res) => {
+
+  // Respond to Meta immediately — processing happens async
+  res.sendStatus(200);
+
   try {
-    data = JSON.parse(resp.text);
-  } catch (e) {
-    console.error('[parse] Raw response:', resp.text.slice(0, 500));
-    throw new Error('Could not parse USCIS response.');
-  }
+    const message = extractMessage(req.body);
 
-  // Handle case not found
-  if (!data || (!data.caseStatus && !data.receiptNumber)) {
-    return { found: false, receiptNum, status: null, description: null, formType: null, lastChecked: new Date().toISOString() };
-  }
+    // Ignore non-message events (status updates, etc.)
+    if (!message) return;
 
-  const formMatch = (data.caseStatusDesc || data.description || '')
-    .match(/Form\s+(I-\d+[A-Z]?)/i);
+    const { from, messageId, type, text, audio } = message;
 
-  return {
-    found      : true,
-    receiptNum,
-    status     : data.caseStatus     || data.status     || null,
-    description: data.caseStatusDesc || data.description || null,
-    formType   : formMatch ? formMatch[1].toUpperCase() : (data.formNum || data.form || null),
-    updateDate : data.updateDate || data.lastUpdated || null,
-    lastChecked: new Date().toISOString(),
-    source     : 'uscis-csol-api',
-  };
-}
+    console.log(`[Webhook] Message from ${from.slice(-4)} | type: ${type}`);
 
-// ── Severity classifier ───────────────────────────────────────────────────────
-const SEV_MAP = [
-  { pattern: /request for evidence|rfe/i,       sev: 'urgent'  },
-  { pattern: /notice of intent to deny|noid/i,  sev: 'urgent'  },
-  { pattern: /denied/i,                         sev: 'denied'  },
-  { pattern: /approved|card was produced/i,     sev: 'success' },
-  { pattern: /card was delivered/i,             sev: 'success' },
-  { pattern: /interview|biometric/i,            sev: 'action'  },
-  { pattern: /case.*received|we received/i,     sev: 'normal'  },
-  { pattern: /actively review|being reviewed/i, sev: 'normal'  },
-  { pattern: /transferred/i,                    sev: 'normal'  },
-  { pattern: /withdrawn/i,                      sev: 'denied'  },
-];
-function classifySeverity(status) {
-  if (!status) return 'normal';
-  for (const { pattern, sev } of SEV_MAP) { if (pattern.test(status)) return sev; }
-  return 'normal';
-}
+    // Mark message as read (shows blue checkmarks)
+    await markAsRead(messageId);
 
-// ── Routes ────────────────────────────────────────────────────────────────────
-app.get('/health', (_req, res) => res.json({
-  ok        : true,
-  cacheSize : cache.size,
-  node      : process.version,
-  scraperapi: !!process.env.SCRAPERAPI_KEY,
-}));
+    // Anonymize the phone number before any DB operations
+    const anonymousId = anonymizePhone(from);
 
-// Debug route — shows raw USCIS API response
-app.get('/api/debug/:receiptNum', async (req, res) => {
-  try {
-    const SCRAPERAPI_KEY = process.env.SCRAPERAPI_KEY;
-    const receiptNum = req.params.receiptNum.toUpperCase().replace(/[-\s]/g, '');
-    const targetUrl  = `${USCIS_API}/${receiptNum}`;
-    const scraperUrl = `http://api.scraperapi.com?api_key=${SCRAPERAPI_KEY}&url=${encodeURIComponent(targetUrl)}&country_code=us`;
-    const resp = await httpRequest(scraperUrl, {
-      method : 'GET',
-      headers: { 'Accept': 'application/json', 'Referer': 'https://egov.uscis.gov/' },
-    });
-    res.json({ httpStatus: resp.status, rawResponse: resp.text.slice(0, 3000) });
+    // ── Handle STOP command ─────────────────────────────
+    if (text && config.commands.stop.includes(text.trim().toUpperCase())) {
+      await optOutUser(anonymousId);
+      await sendMessage(from, optOut.creole);
+      return;
+    }
+
+    // ── Check opt-in status ─────────────────────────────
+    const optedIn = await isUserOptedIn(anonymousId);
+    if (!optedIn) {
+      // User previously unsubscribed — re-subscribe them on contact
+      // (WhatsApp policy: if they message you, they're re-opting in)
+      console.log(`[Webhook] Re-subscribing user ${anonymousId}`);
+    }
+
+    // ── Handle audio messages ───────────────────────────
+    if (type === 'audio') {
+      await sendMessage(from, handleAudio('creole'));
+      return;
+    }
+
+    // ── Handle unsupported message types ────────────────
+    if (type !== 'text' || !text) {
+      console.log(`[Webhook] Unsupported message type: ${type}`);
+      return;
+    }
+
+    // ── Process text message with AI agent ──────────────
+    const response = await processMessage(text, anonymousId);
+    await sendMessage(from, response);
+
+    console.log(`[Webhook] Response sent to ${from.slice(-4)}`);
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('[Webhook] Handler error:', err.message);
+    // Don't crash — just log. Meta already got the 200.
   }
 });
 
-app.all('/api/case-status', async (req, res) => {
-  try {
-    const rawNum     = (req.body?.receiptNum ?? req.query?.receiptNum ?? '').trim();
-    const receiptNum = rawNum.toUpperCase().replace(/[-\s]/g, '');
-    const err        = validateReceipt(receiptNum);
-    if (err) return res.status(400).json({ error: err });
+// ── Admin Endpoints ───────────────────────────────────────
+// Simple read-only analytics endpoints.
+// Protect these with a secret key in production.
 
-    const cached = getCached(receiptNum);
-    if (cached) return res.json({ ...cached, cached: true });
-
-    const data     = await fetchUSCISStatus(receiptNum);
-    const severity = classifySeverity(data.status);
-    const result   = { ...data, severity, cached: false };
-    setCache(receiptNum, result);
-    return res.json(result);
-  } catch (err) {
-    console.error('[case-status error]', err.message);
-    if (/timeout/i.test(err.message))        return res.status(504).json({ error: 'USCIS is responding slowly. Please try again.' });
-    if (/SCRAPERAPI_KEY/i.test(err.message)) return res.status(500).json({ error: 'Proxy misconfigured — SCRAPERAPI_KEY missing.' });
-    return res.status(502).json({ error: 'Could not reach USCIS. Please try again shortly.', detail: err.message });
+app.get('/admin/needs', async (req, res) => {
+  const key = req.headers['x-admin-key'];
+  if (key !== process.env.ADMIN_KEY) {
+    return res.sendStatus(401);
   }
+
+  const { getCommunityNeeds } = await import('./database.js');
+  const needs = await getCommunityNeeds(50);
+  res.json({ data: needs });
 });
 
-app.delete('/api/case-status/:receiptNum', (req, res) => {
-  const key = req.params.receiptNum.toUpperCase().replace(/[-\s]/g, '');
-  res.json({ deleted: cache.delete(key), key });
+app.get('/admin/leads', async (req, res) => {
+  const key = req.headers['x-admin-key'];
+  if (key !== process.env.ADMIN_KEY) {
+    return res.sendStatus(401);
+  }
+
+  const { getBusinessLeadReport } = await import('./database.js');
+  const report = await getBusinessLeadReport();
+  res.json({ data: report });
 });
 
-app.listen(PORT, () => console.log(`ClearImmi proxy v6 on :${PORT} — ScraperAPI: ${!!process.env.SCRAPERAPI_KEY}`));
+// ── Start Server ──────────────────────────────────────────
+app.listen(config.port, () => {
+  console.log(`
+╔════════════════════════════════════════╗
+║         BIZNIS BOSTON v1.0.0           ║
+║   Haitian Business Directory Agent    ║
+╠════════════════════════════════════════╣
+║  Status:  Running                      ║
+║  Port:    ${config.port}                          ║
+║  Env:     ${config.environment}                ║
+║  Webhook: POST /webhook                ║
+║  Health:  GET /                        ║
+╚════════════════════════════════════════╝
+  `);
+});
+
+export default app;
