@@ -1,157 +1,202 @@
-# BIZNIS Boston 🇭🇹
-### Haitian Business Directory — WhatsApp AI Agent
+# ClearImmi Pathways
 
-A WhatsApp AI agent that helps the Boston Haitian community find
-Haitian businesses and professionals in Greater Boston.
-Responds in Haitian Creole, French, and English.
+A free, multilingual (EN/HT/FR/ES/PT/ZH/AR) site helping immigrants
+navigate US career licensing, understand their immigration status and
+forms in plain language, and stay current on policy changes. No sign-up,
+no accounts, nothing stored server-side — everything lives in the
+visitor's own browser (`localStorage`).
 
----
+Zero build step. Deploy by uploading this whole folder — e.g. to
+Hostinger's `public_html/pathways/`. `index.html` is the entry point.
 
-## Project Structure
+## Why this file exists
+
+This project gets picked up across many separate sessions, often with no
+memory of prior work. This README is the fastest way for a new session
+(human or AI) to get oriented safely. Read it before making changes.
+
+## Folder structure
 
 ```
-biznis-boston/
-├── src/
-│   ├── server.js      ← Main Express server + webhook handler
-│   ├── agent.js       ← Claude AI intent detection + query processing
-│   ├── messages.js    ← All bot responses (Creole / French / English)
-│   ├── database.js    ← All Supabase operations
-│   ├── whatsapp.js    ← Meta Cloud API client
-│   ├── privacy.js     ← Phone anonymization + query sanitization
-│   ├── config.js      ← All settings and constants
-│   └── test.js        ← Local test runner (no WhatsApp needed)
-├── .env.example       ← Environment variable template
-├── .gitignore
-├── package.json
-├── railway.toml       ← Railway deployment config
-└── README.md
+index.html          — page structure only (all screens, no logic)
+css/style.css        — all styling (dark navy/gold theme)
+js/config.js          — deploy-time settings: SITE_URL, AI endpoints
+js/data/               — content, no logic. Safe to edit without touching app/
+  states/ma.js          — Massachusetts pathway plans, disclaimers, upgrades
+  states/fl.js           — Florida pathway plans, disclaimers, upgrades
+  careers.js               — the 28-career quiz catalog (state-agnostic)
+  glossary.js               — Status & Form Filling Help content
+  updates.js                  — Immigration Updates feed items
+  faq.js                        — FAQ shown on results screens
+  translations.js                 — ES/PT layer (see "Translation system" below)
+js/app/                — logic, no content. Safe to edit without touching data/
+  storage.js              — localStorage helpers
+  navigation.js             — screen switching, language switching, state
+                               switching — see warning below
+  render-pathways.js          — plan/upgrade results, income ladder, roadmap
+  render-quiz.js                — career finder quiz
+  render-glossary.js              — status/form glossary screens
+  render-updates.js                 — immigration updates feed
+  render-home.js                      — FAQ accordion, stats bar
+  ai-features.js                        — letter explainer + filing help
+  share.js                                — WhatsApp / native share
+  main.js                                   — startup; must load LAST
 ```
 
----
+## Load order matters
 
-## Setup — Step by Step
+`index.html` loads scripts in this order: `config.js` → all of `data/*`
+→ all of `app/*` (storage first, `main.js` last). Data files must load
+before app files because app files reference their variables
+(`plans`, `careers`, `glossaryData`, etc.) as globals. `main.js` must
+load last because it runs the startup routines and needs everything
+else already defined.
 
-### 1. Install dependencies
-```bash
-npm install
-```
+If you add a new script file, add its `<script src="...">` tag in
+`index.html` in the right position — data before app, `main.js` always
+last.
 
-### 2. Configure environment
-```bash
-cp .env.example .env
-```
-Fill in all values in `.env` — see comments in the file for where to get each one.
+## ⚠ The bug this structure exists to prevent
 
-### 3. Set up Supabase
-- Go to supabase.com → create project named `biznis-boston`
-- SQL Editor → New Query → paste `biznis_supabase_setup.sql` → Run
-- Copy your `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` to `.env`
+A real translation bug shipped once: switching languages updated visible
+button labels but not dynamically-rendered content (glossary entries,
+the updates feed), because `setLang()` in `navigation.js` didn't know
+those screens existed yet — they were added in later sessions.
 
-### 4. Set up Meta / WhatsApp
-- Go to developers.facebook.com
-- Create App → Business type
-- Add WhatsApp product
-- Copy `META_ACCESS_TOKEN` and `PHONE_NUMBER_ID` to `.env`
+**If you add a screen with content that's injected via JS
+(`innerHTML`/`textContent`), not just static `data-en`/`data-ht`
+attributes, you must add a re-render call for it inside `setLang()` in
+`navigation.js`.** Search that function for the existing pattern
+(`if (document.getElementById('screen-X').classList.contains('active'))`)
+and follow it.
 
-### 5. Test locally
-```bash
-npm test
-```
-This runs all test queries through the AI agent without needing WhatsApp.
+## Adding a new state
 
-### 6. Run locally
-```bash
-npm run dev
-```
-Server starts on `http://localhost:3000`
+1. Copy `js/data/states/fl.js` as a starting template (it's smaller than
+   `ma.js`).
+2. Research and verify every fact yourself — phone numbers, fees, agency
+   names, legal requirements — against that state's actual licensing
+   boards. **Never adapt another state's facts by swapping the state
+   name.** Licensing rules are not portable between states.
+3. Add the new state to `stateRegistry` in `navigation.js` with
+   `status: 'live'` once content is ready (use `status: 'comingSoon'`
+   with empty `plans`/`disclaimers`/`upgrades` objects as a placeholder
+   before that).
+4. Add a `<script src="js/data/states/XX.js">` tag in `index.html`,
+   before the `js/app/` scripts.
 
-### 7. Deploy to Railway
-```bash
-npm install -g @railway/cli
-railway login
-railway init
-railway up
-```
-Then set all environment variables in Railway dashboard.
+## Translation system
 
-### 8. Connect webhook to Meta
-- Your Railway URL will be: `https://your-app.railway.app`
-- In Meta dashboard: WhatsApp → Configuration → Webhook
-- Webhook URL: `https://your-app.railway.app/webhook`
-- Verify token: whatever you set as `WEBHOOK_VERIFY_TOKEN`
-- Subscribe to: `messages`
+- EN/HT/FR live inline as `data-en`/`data-ht`/`data-fr` attributes in
+  `index.html`, or as `{ en: ..., ht: ..., fr: ... }` objects in JS data.
+- ES/PT do NOT use `data-es`/`data-pt` attributes for most static HTML —
+  `setLang()` resolves ES/PT through `staticT` in
+  `js/data/translations.js`, keyed by the exact `data-en` text. If you
+  add new static HTML text, add its ES/PT translation to `staticT` too,
+  or it will silently fall back to English.
+- ZH/AR currently only cover the FAQ, UI chrome, and general strings —
+  NOT the full pathway plans or career descriptions. That's a real,
+  known gap, not an oversight — see the AI's own notes from when ZH/AR
+  were added.
+- `langExtra` in `translations.js` deep-merges ES/PT into `plans`,
+  `careers`, `ui`, `disclaimers`, and `shareMsg` at load time via
+  `mergeLang()` in `navigation.js`.
 
----
+## The two dormant AI features
 
-## Environment Variables
+Both `EXPLAIN_ENDPOINT` (Letter Explainer) and `FILING_HELP_ENDPOINT`
+(Form Filing Help) in `js/config.js` are currently empty strings. The UI
+detects this and shows an honest "not connected yet" message instead of
+failing. To activate either:
 
-| Variable | Where to get it |
-|---|---|
-| `ANTHROPIC_API_KEY` | console.anthropic.com → API Keys |
-| `SUPABASE_URL` | supabase.com → project → Settings → API |
-| `SUPABASE_SERVICE_KEY` | supabase.com → project → Settings → API |
-| `META_ACCESS_TOKEN` | developers.facebook.com → WhatsApp → API Setup |
-| `PHONE_NUMBER_ID` | developers.facebook.com → WhatsApp → API Setup |
-| `WEBHOOK_VERIFY_TOKEN` | Make this up — must match Meta webhook settings |
-| `HASH_SALT` | Make this up — long random string |
-| `ADMIN_KEY` | Make this up — protects /admin endpoints |
+1. Deploy a backend (e.g. on Railway) that accepts the POST payload
+   shape each function sends (see `explainLetter()` and
+   `explainFormFields()` in `js/app/ai-features.js` for the exact
+   request/response shapes expected).
+2. Fill in the URL in `js/config.js`.
 
----
+These are deliberately separate endpoints with separate prompts. The
+Letter Explainer returns free-text. Filing Help must return structured
+per-field JSON and must never fill in an answer for a field that
+requires legal judgment — it should flag those instead (see
+`legalJudgment: true` pattern in `js/data/glossary.js` for the model to
+follow).
 
-## Commands the Bot Understands
+## Analytics (GA4)
 
-| Command | Action |
-|---|---|
-| `MENU` / `MENI` / `HELP` | Show all categories |
-| `STOP` / `ARETE` | Unsubscribe |
-| Any service name | Search directory |
+GA4 property already exists (measurement ID `G-535822722`) and is wired
+into every page's `<head>` — `index.html` and all three `blog/*.html`
+files. If you add a new HTML page, copy the GA snippet from the top of
+`index.html`'s `<head>` into it.
 
----
+Beyond pageviews, `js/app/analytics.js` defines `trackEvent(name, params)`
+— a thin wrapper around `gtag()` that never throws if GA is blocked or
+not loaded. Custom events currently tracked:
 
-## Admin Endpoints
+- `generate_plan` — field, goal, state (someone got a pathway plan)
+- `generate_upgrade` — job, state (someone got an upgrade path)
+- `select_state` — which state someone switched to
+- `select_coming_soon_state` — tapped a not-yet-live state; this is real
+  signal for which state to build next
+- `select_language` — which language someone chose
+- `complete_quiz` — top_matches (which careers people actually match into)
+- `share` — method (whatsapp/native), content (which plan/path was shared)
 
-These require `x-admin-key` header matching your `ADMIN_KEY` env variable.
+`analytics.js` must load early — after `storage.js`, before everything
+else that calls `trackEvent()`. See the script order in `index.html`.
 
-```bash
-# See what community is searching for that you don't have listed
-curl https://your-app.railway.app/admin/needs \
-  -H "x-admin-key: YOUR_ADMIN_KEY"
+This event data is what eventually supports the B2B pitch to agencies
+(real usage numbers) — see the "Best revenue path" discussion elsewhere
+in project history. Don't remove these calls without replacing them.
 
-# See leads per business (use for upgrade pitch)
-curl https://your-app.railway.app/admin/leads \
-  -H "x-admin-key: YOUR_ADMIN_KEY"
-```
+## Blog (SEO)
 
----
+`blog/` is a separate content type from Immigration Updates, and
+deliberately built differently:
 
-## Adding Businesses
+- **Immigration Updates** (`js/data/updates.js`) — short, dated,
+  time-sensitive news, rendered client-side inside the app. Not built
+  to rank in search; built for trust with people who already found you.
+  New items go to the TOP of the array — nothing is ever removed, so
+  the feed only grows. If you're asked to "add" an update, prepend it;
+  never delete or replace an existing entry.
+- **Blog** (`blog/*.html`) — long-form, evergreen, keyword-targeted,
+  static HTML per post. Built to rank in search and bring new people in.
 
-Go to Supabase → Table Editor → businesses → Insert row.
+Each blog post is a standalone `.html` file (not JS-rendered) so search
+engines can read it without executing anything — this is the entire
+point, and it's why blog posts don't use the SPA's language-switching
+system. They reuse `css/style.css` (the `.blog-*` classes near the
+bottom of that file) so they look consistent with the rest of the site.
 
-Key fields:
-- `name` — Business name
-- `category` — Must match exactly: `Sèvis Legal`, `Sèvis Taks`, `Sante`, `Imobilye`, `Transpò`, `Manje`, `Bote`, `Lekòl`, `Legliz`, `Voye Kòb`, `Konstriksyon`, `Lòt`
-- `tier` — `free`, `standard`, `premium`, `spotlight`
-- `is_verified` — true/false
-- `is_active` — true/false (set false to hide a listing)
-- `languages_spoken` — array e.g. `{Kreyòl,English,Français}`
+To add a new post:
+1. Copy an existing post in `blog/` as a template.
+2. Research the topic properly — real search queries, real competitor
+   content, and verify every fact against an official source. Same
+   standard as everywhere else in this project: no fabricated numbers,
+   no invented requirements.
+3. Set `<title>`, `<meta name="description">`, and `<link rel="canonical">`
+   in the `<head>` — these are what search engines and social shares
+   actually use.
+4. Link back into the app somewhere relevant (the `.blog-cta` box
+   pattern) — the blog's job is to bring people to the actual product,
+   not just to rank on its own.
+5. Add the post to `blog/index.html`'s listing.
+6. Add its URL to `sitemap.xml`.
+7. Include a `.blog-disclaimer` block and cite sources in
+   `.blog-sources`, same discipline as the glossary — especially for
+   any post touching immigration status or legal topics.
 
----
+## Content safety rules (apply everywhere, not just the glossary)
 
-## Monetization Tiers
-
-| Tier | Monthly Price | Position |
-|---|---|---|
-| Free | $0 | Last |
-| Standard | $29 | Middle |
-| Premium | $79 | First + ⭐ badge |
-| Spotlight | $149 | Top + ⭐ badge |
-
----
-
-## Monthly Tasks
-
-1. Check `community_needs` view — what are people searching for you don't have?
-2. Check `business_lead_report` view — which free businesses got leads? Pitch them upgrades.
-3. Verify all active listings still have correct phone numbers.
-4. Add new businesses from community referrals.
+- No AI fabrication of fees, phone numbers, deadlines, or requirements —
+  ever. If a fact isn't verified against an official source, it doesn't
+  ship.
+- The Status & Form Filling Help section is general education only —
+  never case-specific advice. Every glossary page and every Immigration
+  Updates item ends with a disclaimer and a link to the DOJ's
+  accredited-representative finder. Keep that pattern when adding
+  content.
+- Immigration Updates content goes stale fast. Each item should carry a
+  clear date and a live source link. Re-verify and refresh periodically
+  — this is not a "write once" section.

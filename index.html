@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-535822722"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-535822722');
+</script>
+
+<title>ClearImmi — Career Pathways for Immigrants</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<header>
+  <div class="inner">
+    <div class="header-top">
+      <div class="brand">ClearImmi</div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ht" onclick="setLang('ht')">Kreyòl</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">PT</button>
+        <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="ar" onclick="setLang('ar')">العربية</button>
+      </div>
+    </div>
+    <div class="human-line">
+      <div class="human-avatar">👋</div>
+      <p data-en="Made by someone who's navigated this himself — not a government office" data-ht="Fèt pa yon moun ki navige sa a li menm — se pa yon biwo gouvènman" data-fr="Créé par quelqu'un qui a vécu ce parcours lui-même — pas un bureau gouvernemental" data-es="Hecho por alguien que ha navegado esto él mismo — no una oficina gubernamental" data-pt="Feito por alguém que já passou por isso — não uma repartição pública">Made by someone who's navigated this himself — not a government office</p>
+    </div>
+
+    <h1 data-en="Your career path in the US, step by step" data-ht="Chemen karyè ou Ozetazini, etap pa etap" data-fr="Votre parcours professionnel aux États-Unis, étape par étape">Your career path in the US, step by step</h1>
+    <p data-en="Built from official state licensing requirements — made for immigrants, in your language." data-ht="Bati sou egzijans ofisyèl lisans eta a — fèt pou imigran, nan lang ou." data-fr="Basé sur les exigences officielles de licence de l'État — conçu pour les immigrants, dans votre langue.">Built from official state licensing requirements — made for immigrants, in your language.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HOME: intent-first -->
+  <div class="screen active" id="screen-home">
+
+    <div class="trust-strip">
+      <div class="trust-pill" data-en="✓ Free" data-ht="✓ Gratis" data-fr="✓ Gratuit">✓ Free</div>
+      <div class="trust-pill" data-en="✓ No sign-up" data-ht="✓ Pa bezwen kont" data-fr="✓ Sans inscription">✓ No sign-up</div>
+      <div class="trust-pill" data-en="✓ Nothing stored" data-ht="✓ Anyen pa estoke" data-fr="✓ Rien n'est conservé">✓ Nothing stored</div>
+    </div>
+
+    <div class="state-strip" id="stateStrip"></div>
+    <div class="state-note" id="stateNote"></div>
+
+    <div class="roadmap-tile" id="roadmapTile">
+      <div class="roadmap-tile-title" id="roadmapTitle"></div>
+      <div id="roadmapItems"></div>
+    </div>
+
+    <div class="section-title" data-en="What do you need today?" data-ht="Kisa ou bezwen jodi a?" data-fr="De quoi avez-vous besoin aujourd'hui ?">What do you need today?</div>
+    <div class="section-sub" data-en="Tap a section to get started" data-ht="Chwazi yon seksyon pou kòmanse" data-fr="Choisissez une section pour commencer">Tap a section to get started</div>
+
+    <div class="section-cards-grid">
+      <button class="section-card pathways" onclick="showScreen('screen-pathways-hub')">
+        <div class="section-card-icon">🧭</div>
+        <div class="section-card-body">
+          <h3 data-en="Career &amp; Credential Pathways" data-ht="Chemen Karyè ak Diplòm" data-fr="Parcours de Carrière et Diplômes">Career &amp; Credential Pathways</h3>
+          <p data-en="Already working, have a credential from home, or starting fresh — find your step-by-step plan" data-ht="Deja ap travay, gen yon diplòm lakay, oswa kòmanse fre — jwenn plan etap pa etap ou" data-fr="Déjà en poste, diplôme de votre pays, ou nouveau départ — trouvez votre plan étape par étape" data-es="Ya trabajando, con título de tu país, o empezando de cero — encuentra tu plan paso a paso" data-pt="Já trabalhando, com diploma do seu país, ou começando do zero — encontre seu plano passo a passo">Already working, have a credential from home, or starting fresh — find your step-by-step plan</p>
+        </div>
+        <div class="section-card-arrow">›</div>
+      </button>
+
+      <button class="section-card formfilling" onclick="showScreen('screen-glossary')">
+        <div class="section-card-icon">📖</div>
+        <div class="section-card-body">
+          <h3 data-en="Status &amp; Form Filling Help" data-ht="Èd Estati ak Ranpli Fòm" data-fr="Aide sur le Statut et les Formulaires">Status &amp; Form Filling Help</h3>
+          <p data-en="Plain-language explainers — TPS, asylum, green cards, work permits, and what each form field is asking" data-ht="Eksplikasyon senp — TPS, azil, kat vèt, pèmi travay, ak sa chak chan fòm mande" data-fr="Explications simples — TPS, asile, carte verte, permis de travail, et ce que chaque champ de formulaire demande" data-es="Explicaciones sencillas — TPS, asilo, green card, permiso de trabajo, y qué pide cada campo del formulario" data-pt="Explicações simples — TPS, asilo, green card, autorização de trabalho, e o que cada campo do formulário pede">Plain-language explainers — TPS, asylum, green cards, work permits, and what each form field is asking</p>
+        </div>
+        <div class="section-card-arrow">›</div>
+      </button>
+
+      <button class="section-card updates" onclick="showScreen('screen-updates')">
+        <div class="section-card-icon">📰</div>
+        <div class="section-card-body">
+          <h3 data-en="Immigration Updates" data-ht="Nouvèl Imigrasyon" data-fr="Actualités de l'Immigration">Immigration Updates</h3>
+          <p data-en="Dated, sourced updates on policy changes that affect real people — in plain language" data-ht="Nouvèl dat, sous byen site sou chanjman politik ki afekte moun reyèl — nan lang senp" data-fr="Mises à jour datées et sourcées sur les changements de politique qui affectent de vraies personnes — en langage simple" data-es="Actualizaciones fechadas y con fuentes sobre cambios de política que afectan a personas reales — en lenguaje sencillo" data-pt="Atualizações datadas e com fontes sobre mudanças de política que afetam pessoas reais — em linguagem simples">Dated, sourced updates on policy changes that affect real people — in plain language</p>
+        </div>
+        <div class="section-card-arrow">›</div>
+      </button>
+    </div>
+
+    <div class="benefit-strip">
+      <div class="benefit-row">
+        <span class="benefit-check">✓</span>
+        <p data-en="Real phone numbers, fees, and requirements — verified with state boards" data-ht="Vrè nimewo telefòn, frè, ak egzijans — verifye ak biwo eta yo" data-fr="Vrais numéros de téléphone, frais et exigences — vérifiés auprès des organismes d'État" data-es="Números de teléfono, tarifas y requisitos reales — verificados con las juntas estatales" data-pt="Números de telefone, taxas e requisitos reais — verificados com os órgãos estaduais">Real phone numbers, fees, and requirements — verified with state boards</p>
+      </div>
+      <div class="benefit-row">
+        <span class="benefit-check">✓</span>
+        <p data-en="Free training programs listed first — before anything that costs money" data-ht="Pwogram fòmasyon gratis parèt an premye — anvan nenpòt bagay ki koute lajan" data-fr="Programmes de formation gratuits listés en premier — avant tout ce qui coûte de l'argent" data-es="Programas de capacitación gratuitos primero — antes de cualquier cosa que cueste dinero" data-pt="Programas de treinamento gratuitos primeiro — antes de qualquer coisa que custe dinheiro">Free training programs listed first — before anything that costs money</p>
+      </div>
+      <div class="benefit-row">
+        <span class="benefit-check">✓</span>
+        <p data-en="Your progress saves on this device — no account, no email, nothing to sign" data-ht="Pwogrè ou sove sou aparèy sa a — pa gen kont, pa gen imèl, anyen pou siyen" data-fr="Votre progression est enregistrée sur cet appareil — pas de compte, pas d'e-mail, rien à signer" data-es="Tu progreso se guarda en este dispositivo — sin cuenta, sin correo, nada que firmar" data-pt="Seu progresso fica salvo neste aparelho — sem conta, sem e-mail, nada para assinar">Your progress saves on this device — no account, no email, nothing to sign</p>
+      </div>
+    </div>
+
+    <div class="stats-bar" id="statsBar"></div>
+
+    <div class="footer-line">
+      <p data-en="ClearImmi — made for anyone starting over in a new country ♥<br>Massachusetts pathways available now · more states coming" data-ht="ClearImmi — fèt pou nenpòt moun k ap rekòmanse nan yon nouvo peyi ♥<br>Chemen Massachusetts disponib kounye a · plis eta ap vini" data-fr="ClearImmi — conçu pour quiconque recommence dans un nouveau pays ♥<br>Parcours du Massachusetts disponibles maintenant · d'autres États à venir" data-es="ClearImmi — hecho para cualquiera que empieza de nuevo en un país nuevo ♥<br>Caminos de Massachusetts disponibles ahora · más estados próximamente" data-pt="ClearImmi — feito para quem está recomeçando em um novo país ♥<br>Caminhos de Massachusetts disponíveis agora · mais estados em breve">ClearImmi — made for anyone starting over in a new country ♥<br>Massachusetts pathways available now · more states coming</p>
+    </div>
+  </div>
+
+  <!-- FIELD PICKER -->
+  <div class="screen" id="screen-pathways-hub">
+    <button class="back-link" onclick="goHome()" data-en="← Home" data-ht="← Akèy" data-fr="← Accueil" style="margin-bottom:14px;">← Home</button>
+
+    <div class="eyebrow" data-en="Career &amp; Credential Pathways" data-ht="Chemen Karyè ak Diplòm" data-fr="Parcours de Carrière et Diplômes">Career &amp; Credential Pathways</div>
+    <h2 data-en="What's your starting point?" data-ht="Ki kote ou kòmanse?" data-fr="Quel est votre point de départ ?">What's your starting point?</h2>
+
+    <button class="intent-card upgrade" onclick="showScreen('screen-upgrade')">
+      <div class="intent-icon">📈</div>
+      <div class="intent-body">
+        <h3 data-en="I already work here" data-ht="Mwen deja travay isit" data-fr="Je travaille déjà ici" data-es="Ya trabajo aquí" data-pt="Já trabalho aqui">I already work here</h3>
+        <p data-en="CNA, Uber, restaurant, security — find your next step up" data-ht="CNA, Uber, restoran, sekirite — jwenn pwochen etap ou" data-fr="CNA, Uber, restauration, sécurité — trouvez votre prochaine étape" data-es="CNA, Uber, restaurante, seguridad — encuentra tu próximo paso" data-pt="CNA, Uber, restaurante, segurança — encontre seu próximo passo">CNA, Uber, restaurant, security — find your next step up</p>
+      </div>
+      <div class="intent-arrow">›</div>
+    </button>
+
+    <button class="intent-card credential" onclick="showScreen('screen-fields')">
+      <div class="intent-icon">🎓</div>
+      <div class="intent-body">
+        <h3 data-en="I have a credential from home" data-ht="Mwen gen yon diplòm lakay" data-fr="J'ai un diplôme de mon pays" data-es="Tengo un título de mi país" data-pt="Tenho um diploma do meu país">I have a credential from home</h3>
+        <p data-en="Nurse, teacher, stylist, driver — your path in Massachusetts" data-ht="Enfimyè, pwofesè, estilis, chofè — chemen ou nan Massachusetts" data-fr="Infirmier, enseignant, styliste, chauffeur — votre parcours au Massachusetts" data-es="Enfermera, maestro, estilista, chofer — tu camino en Massachusetts" data-pt="Enfermeira, professor, cabeleireiro, motorista — seu caminho em Massachusetts">Nurse, teacher, stylist, driver — your path in Massachusetts</p>
+      </div>
+      <div class="intent-arrow">›</div>
+    </button>
+
+    <button class="intent-card career" onclick="showScreen('screen-quiz')">
+      <div class="intent-icon">🧭</div>
+      <div class="intent-body">
+        <h3 data-en="I want to find a new career" data-ht="Mwen vle jwenn yon nouvo karyè" data-fr="Je veux trouver une nouvelle carrière" data-es="Quiero encontrar una nueva carrera" data-pt="Quero encontrar uma nova carreira">I want to find a new career</h3>
+        <p data-en="No credential needed — 4 questions, real income numbers" data-ht="Pa bezwen diplòm — 4 kesyon, chif revni reyèl" data-fr="Aucun diplôme requis — 4 questions, vrais chiffres de revenus" data-es="Sin título necesario — 4 preguntas, cifras de ingresos reales" data-pt="Sem diploma necessário — 4 perguntas, números reais de renda">No credential needed — 4 questions, real income numbers</p>
+      </div>
+      <div class="intent-arrow">›</div>
+    </button>
+
+    <p class="cards-hint" data-en="Have a credential from home AND already working? Start with your credential — it protects your biggest income jump." data-ht="Ou gen yon diplòm lakay ou EPI w ap travay deja? Kòmanse ak diplòm ou — li pwoteje pi gwo sote revni ou." data-fr="Vous avez un diplôme de votre pays ET vous travaillez déjà ? Commencez par votre diplôme — il protège votre plus grand saut de revenu.">Have a credential from home AND already working? Start with your credential — it protects your biggest income jump.</p>
+  </div>
+
+  <div class="screen" id="screen-updates">
+    <button class="back-link" onclick="goHome()" data-en="← Home" data-ht="← Akèy" data-fr="← Accueil" style="margin-bottom:14px;">← Home</button>
+
+    <div class="eyebrow" data-en="Immigration Updates" data-ht="Nouvèl Imigrasyon" data-fr="Actualités de l'Immigration">Immigration Updates</div>
+    <h2 data-en="What's changed recently" data-ht="Sa ki chanje dènyèman" data-fr="Ce qui a changé récemment">What's changed recently</h2>
+    <p class="section-sub" data-en="Dated, sourced updates on policy changes — no rumors, no speculation. This is news, not advice about your case." data-ht="Nouvèl dat, sous byen site sou chanjman politik — pa gen rimè, pa gen espekilasyon. Sa se nouvèl, se pa konsèy sou ka ou." data-fr="Mises à jour datées et sourcées sur les changements de politique — pas de rumeurs, pas de spéculation. Ce sont des actualités, pas un conseil sur votre dossier.">Dated, sourced updates on policy changes — no rumors, no speculation. This is news, not advice about your case.</p>
+
+    <div class="glossary-notice" style="margin-top:16px;">
+      <strong data-en="This is news, not legal advice." data-ht="Sa se nouvèl, se pa konsèy legal." data-fr="Ceci est une actualité, pas un conseil juridique.">This is news, not legal advice.</strong>
+      <span data-en=" How a policy change affects YOUR situation depends on details only a licensed attorney or accredited representative can evaluate." data-ht=" Kijan yon chanjman politik afekte SITIYASYON OU depann de detay sèlman yon avoka gen lisans oswa reprezantan akredite ka evalye." data-fr=" La façon dont un changement de politique affecte VOTRE situation dépend de détails que seul un avocat agréé ou un représentant accrédité peut évaluer."> How a policy change affects YOUR situation depends on details only a licensed attorney or accredited representative can evaluate.</span>
+    </div>
+
+    <div id="updatesFeed" style="margin-top:20px;"></div>
+
+    <div class="find-help-box">
+      <h4 data-en="Questions about how this affects you?" data-ht="Kesyon sou kijan sa afekte ou?" data-fr="Des questions sur la façon dont cela vous affecte ?">Questions about how this affects you?</h4>
+      <p data-en="Find a free or low-cost accredited representative or attorney near you through the Department of Justice's official list." data-ht="Jwenn yon reprezantan akredite oswa avoka gratis oswa a pri ba toupre ou nan lis ofisyèl Depatman Jistis la." data-fr="Trouvez un représentant accrédité ou un avocat gratuit ou à faible coût près de chez vous grâce à la liste officielle du Département de la Justice.">Find a free or low-cost accredited representative or attorney near you through the Department of Justice's official list.</p>
+      <a class="btn-find-help" href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener" data-en="Find free/low-cost help →" data-ht="Jwenn èd gratis/ba pri →" data-fr="Trouver une aide gratuite →">Find free/low-cost help →</a>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-fields">
+    <div class="state-note" id="fieldsStateNote"></div>
+    <div class="section-title" data-en="Which field?" data-ht="Ki domèn?" data-fr="Quel domaine ?">Which field?</div>
+    <div class="section-sub" data-en="Massachusetts pathways — whether you're credentialed or starting fresh" data-ht="Chemen Massachusetts — kit ou gen diplòm, kit w ap kòmanse fre" data-fr="Parcours du Massachusetts — que vous soyez diplômé ou débutant">Massachusetts pathways — whether you're credentialed or starting fresh</div>
+
+    <button class="field-card" onclick="openField('nursing')">
+      <h3 data-en="Nursing &amp; Healthcare" data-ht="Enfimyè &amp; Swen Sante" data-fr="Soins infirmiers et santé">Nursing &amp; Healthcare</h3>
+      <p data-en="CNA, LPN, or RN — with or without a foreign nursing credential" data-ht="CNA, LPN, oswa RN — avèk oswa san yon diplòm enfimyè etranje" data-fr="CNA, LPN ou RN — avec ou sans diplôme d'infirmier étranger">CNA, LPN, or RN — with or without a foreign nursing credential</p>
+      <span class="tag" data-en="Available" data-ht="Disponib" data-fr="Disponible">Available</span>
+    </button>
+
+    <button class="field-card" onclick="openField('teaching')">
+      <h3 data-en="Teaching (K-12)" data-ht="Anseyman (K-12)" data-fr="Enseignement (K-12)">Teaching (K-12)</h3>
+      <p data-en="Paraprofessional or licensed teacher — with or without a foreign teaching degree" data-ht="Parapwofesyonèl oswa pwofesè lisansye — avèk oswa san yon diplòm anseyman etranje" data-fr="Paraprofessionnel ou enseignant certifié — avec ou sans diplôme d'enseignement étranger">Paraprofessional or licensed teacher — with or without a foreign teaching degree</p>
+      <span class="tag" data-en="Available" data-ht="Disponib" data-fr="Disponible">Available</span>
+    </button>
+
+    <button class="field-card" onclick="openField('cdl')">
+      <h3 data-en="Commercial Driving (CDL)" data-ht="Kondwi Komèsyal (CDL)" data-fr="Conduite commerciale (CDL)">Commercial Driving (CDL)</h3>
+      <p data-en="Class A trucks or Class B buses — strong pay, no degree required" data-ht="Kamyon Klas A oswa otobis Klas B — bon salè, pa bezwen diplòm" data-fr="Camions classe A ou autobus classe B — bon salaire, aucun diplôme requis">Class A trucks or Class B buses — strong pay, no degree required</p>
+      <span class="tag" data-en="Available" data-ht="Disponib" data-fr="Disponible">Available</span>
+    </button>
+
+    <button class="field-card" onclick="openField('cosmetology')">
+      <h3 data-en="Cosmetology &amp; Beauty" data-ht="Kosmetoloji &amp; Bote" data-fr="Cosmétologie et beauté">Cosmetology &amp; Beauty</h3>
+      <p data-en="Licensed abroad or starting fresh — Massachusetts has a real path for foreign-trained stylists" data-ht="Lisansye aletranje oswa kòmanse fre — Massachusetts gen yon vrè chemen pou estilis fòme aletranje" data-fr="Diplômé à l'étranger ou débutant — le Massachusetts a un vrai parcours pour les stylistes formés à l'étranger">Licensed abroad or starting fresh — Massachusetts has a real path for foreign-trained stylists</p>
+      <span class="tag" data-en="Available" data-ht="Disponib" data-fr="Disponible">Available</span>
+    </button>
+
+    <button class="field-card" onclick="openField('accounting')">
+      <h3 data-en="Business &amp; Accounting" data-ht="Biznis &amp; Kontablite" data-fr="Gestion &amp; Comptabilité" data-es="Administración &amp; Contabilidad" data-pt="Administração &amp; Contabilidade">Business &amp; Accounting</h3>
+      <p data-en="Bookkeeper, accountant, or CPA — with a foreign degree in business or accounting" data-ht="Kontab, kontablè, oswa CPA — avèk yon diplòm etranje nan biznis oswa kontablite" data-fr="Comptable, gestionnaire ou CPA — avec un diplôme étranger en gestion ou comptabilité" data-es="Contador, gestor o CPA — con un título extranjero en administración o contabilidad" data-pt="Contador, gestor ou CPA — com um diploma estrangeiro em administração ou contabilidade">Bookkeeper, accountant, or CPA — with a foreign degree in business or accounting</p>
+      <span class="tag" data-en="Available" data-ht="Disponib" data-fr="Disponible" data-es="Disponible" data-pt="Disponível">Available</span>
+    </button>
+
+    <button class="back-link" onclick="showScreen('screen-quiz')" data-en="My field isn't here — help me find a career instead" data-ht="Domèn mwen pa la — ede m jwenn yon karyè pito" data-fr="Mon domaine n'est pas ici — aidez-moi plutôt à trouver une carrière">My field isn't here — help me find a career instead</button>
+    <br>
+    <button class="back-link" onclick="goHome()" data-en="← Back" data-ht="← Tounen" data-fr="← Retour">← Back</button>
+  </div>
+
+  <!-- NURSING intake -->
+  <div class="screen" id="screen-nursing">
+    <div class="card">
+      <div class="eyebrow" data-en="Nursing" data-ht="Enfimyè" data-fr="Soins infirmiers">Nursing</div>
+
+      <div class="field">
+        <label for="n-start" data-en="What's your starting point?" data-ht="Ki pwen depa ou?" data-fr="Quel est votre point de départ ?">What's your starting point?</label>
+        <div class="select-wrap">
+          <select id="n-start">
+            <option value="credentialed" data-en="I was a licensed nurse in my home country" data-ht="Mwen te yon enfimyè lisansye nan peyi mwen" data-fr="J'étais infirmier(ère) diplômé(e) dans mon pays">I was a licensed nurse in my home country</option>
+            <option value="fresh" data-en="I'm starting fresh — no nursing credential yet" data-ht="M ap kòmanse fre — poko gen diplòm enfimyè" data-fr="Je pars de zéro — pas encore de diplôme d'infirmier">I'm starting fresh — no nursing credential yet</option>
+            <option value="us_trained" data-en="I'm already a CNA or healthcare worker in the US" data-ht="Mwen deja yon CNA oswa travayè swen sante Ozetazini" data-fr="Je suis déjà aide-soignant(e) ou professionnel(le) de santé aux États-Unis">I'm already a CNA or healthcare worker in the US</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="n-goal" data-en="Which path do you want a plan for right now?" data-ht="Pou ki chemen ou vle yon plan kounye a?" data-fr="Pour quel parcours voulez-vous un plan maintenant ?">Which path do you want a plan for right now?</label>
+        <div class="select-wrap">
+          <select id="n-goal">
+            <option value="cna" data-en="CNA — fastest way to start working (weeks)" data-ht="CNA — fason ki pi rapid pou kòmanse travay (semèn)" data-fr="CNA — le moyen le plus rapide de travailler (semaines)">CNA — fastest way to start working (weeks)</option>
+            <option value="lpn" data-en="LPN — mid-level path (months)" data-ht="LPN — chemen mwayen (mwa)" data-fr="LPN — parcours intermédiaire (mois)">LPN — mid-level path (months)</option>
+            <option value="rn" data-en="RN — full nursing license (longest)" data-ht="RN — lisans enfimyè konplè (pi long)" data-fr="RN — licence complète d'infirmier (le plus long)">RN — full nursing license (longest)</option>
+          </select>
+        </div>
+      <div id="nursingGoalLadder"></div>
+        <div class="hint" data-en="Many people start as a CNA for income while working toward RN." data-ht="Anpil moun kòmanse kòm CNA pou lajan pandan y ap travay pou RN." data-fr="Beaucoup commencent comme CNA pour un revenu tout en travaillant vers le RN.">Many people start as a CNA for income while working toward RN.</div>
+      </div>
+
+      <div class="field">
+        <label for="n-english" data-en="Was your education taught in English?" data-ht="Èske edikasyon ou te fèt an anglè?" data-fr="Votre formation était-elle en anglais ?">Was your education taught in English?</label>
+        <div class="select-wrap">
+          <select id="n-english">
+            <option value="no" data-en="No — a different language" data-ht="Non — yon lòt lang" data-fr="Non — une autre langue">No — a different language</option>
+            <option value="yes" data-en="Yes" data-ht="Wi" data-fr="Oui">Yes</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="primary" onclick="generatePlan('nursing')" data-en="Show my pathway" data-ht="Montre chemen mwen" data-fr="Montrer mon parcours">Show my pathway</button>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <!-- TEACHING intake -->
+  <div class="screen" id="screen-teaching">
+    <div class="card">
+      <div class="eyebrow" data-en="Teaching — Massachusetts" data-ht="Anseyman — Massachusetts" data-fr="Enseignement — Massachusetts">Teaching — Massachusetts</div>
+
+      <div class="field">
+        <label for="t-start" data-en="What's your starting point?" data-ht="Ki pwen depa ou?" data-fr="Quel est votre point de départ ?">What's your starting point?</label>
+        <div class="select-wrap">
+          <select id="t-start">
+            <option value="credentialed" data-en="I was a teacher / have a teaching degree from my home country" data-ht="Mwen te yon pwofesè / mwen gen yon diplòm anseyman nan peyi mwen" data-fr="J'étais enseignant(e) / j'ai un diplôme d'enseignement de mon pays">I was a teacher / have a teaching degree from my home country</option>
+            <option value="fresh" data-en="I'm starting fresh — no teaching credential yet" data-ht="M ap kòmanse fre — poko gen diplòm anseyman" data-fr="Je pars de zéro — pas encore de diplôme d'enseignement">I'm starting fresh — no teaching credential yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="t-goal" data-en="Which path do you want a plan for right now?" data-ht="Pou ki chemen ou vle yon plan kounye a?" data-fr="Pour quel parcours voulez-vous un plan maintenant ?">Which path do you want a plan for right now?</label>
+        <div class="select-wrap">
+          <select id="t-goal">
+            <option value="para" data-en="Paraprofessional / teacher's aide — start working quickly" data-ht="Parapwofesyonèl / èd pwofesè — kòmanse travay vit" data-fr="Paraprofessionnel / aide-enseignant — travailler rapidement">Paraprofessional / teacher's aide — start working quickly</option>
+            <option value="teacher" data-en="Licensed teacher — full DESE license (longer)" data-ht="Pwofesè lisansye — lisans DESE konplè (pi long)" data-fr="Enseignant certifié — licence DESE complète (plus long)">Licensed teacher — full DESE license (longer)</option>
+          </select>
+        </div>
+        <div class="hint" data-en="Many immigrant educators start as paraprofessionals while working toward their license." data-ht="Anpil edikatè imigran kòmanse kòm parapwofesyonèl pandan y ap travay pou lisans yo." data-fr="Beaucoup d'éducateurs immigrants commencent comme paraprofessionnels en travaillant vers leur licence.">Many immigrant educators start as paraprofessionals while working toward their license.</div>
+      </div>
+
+      <button class="primary" onclick="generatePlan('teaching')" data-en="Show my pathway" data-ht="Montre chemen mwen" data-fr="Montrer mon parcours">Show my pathway</button>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <!-- CDL intake -->
+  <div class="screen" id="screen-cdl">
+    <div class="card">
+      <div class="eyebrow" data-en="Commercial Driving — Massachusetts" data-ht="Kondwi Komèsyal — Massachusetts" data-fr="Conduite commerciale — Massachusetts">Commercial Driving — Massachusetts</div>
+
+      <div class="field">
+        <label for="c-goal" data-en="Which license do you want a plan for?" data-ht="Pou ki lisans ou vle yon plan?" data-fr="Pour quel permis voulez-vous un plan ?">Which license do you want a plan for?</label>
+        <div class="select-wrap">
+          <select id="c-goal">
+            <option value="classA" data-en="Class A — tractor-trailers (highest pay ceiling)" data-ht="Klas A — trakè-remòk (pi gwo salè)" data-fr="Classe A — semi-remorques (plafond salarial le plus élevé)">Class A — tractor-trailers (highest pay ceiling)</option>
+            <option value="classB" data-en="Class B — buses, box trucks, school buses" data-ht="Klas B — otobis, kamyon bwat, otobis lekòl" data-fr="Classe B — autobus, camions-caisses, autobus scolaires">Class B — buses, box trucks, school buses</option>
+          </select>
+        </div>
+        <div class="hint" data-en="You need a regular Massachusetts driver's license (Class D) first." data-ht="Ou bezwen yon lisans kondwi regilye Massachusetts (Klas D) anvan." data-fr="Vous devez d'abord avoir un permis de conduire régulier du Massachusetts (classe D).">You need a regular Massachusetts driver's license (Class D) first.</div>
+      </div>
+
+      <button class="primary" onclick="generatePlan('cdl')" data-en="Show my pathway" data-ht="Montre chemen mwen" data-fr="Montrer mon parcours">Show my pathway</button>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <!-- COSMETOLOGY intake -->
+  <div class="screen" id="screen-cosmetology">
+    <div class="card">
+      <div class="eyebrow" data-en="Cosmetology — Massachusetts" data-ht="Kosmetoloji — Massachusetts" data-fr="Cosmétologie — Massachusetts">Cosmetology — Massachusetts</div>
+
+      <div class="field">
+        <label for="co-goal" data-en="What's your starting point?" data-ht="Ki pwen depa ou?" data-fr="Quel est votre point de départ ?">What's your starting point?</label>
+        <div class="select-wrap">
+          <select id="co-goal">
+            <option value="foreign" data-en="I trained or worked as a cosmetologist in another country" data-ht="Mwen te fòme oswa travay kòm kosmetològ nan yon lòt peyi" data-fr="J'ai été formé(e) ou j'ai travaillé comme cosmétologue dans un autre pays">I trained or worked as a cosmetologist in another country</option>
+            <option value="fresh" data-en="I'm starting fresh — no beauty training yet" data-ht="M ap kòmanse fre — poko gen fòmasyon bote" data-fr="Je pars de zéro — pas encore de formation en beauté">I'm starting fresh — no beauty training yet</option>
+          </select>
+        </div>
+        <div class="hint" data-en="Massachusetts has a documented process for foreign-trained cosmetologists — your training abroad may count." data-ht="Massachusetts gen yon pwosesis dokimante pou kosmetològ fòme aletranje — fòmasyon ou aletranje ka konte." data-fr="Le Massachusetts a un processus documenté pour les cosmétologues formés à l'étranger — votre formation peut compter.">Massachusetts has a documented process for foreign-trained cosmetologists — your training abroad may count.</div>
+      </div>
+
+      <button class="primary" onclick="generatePlan('cosmetology')" data-en="Show my pathway" data-ht="Montre chemen mwen" data-fr="Montrer mon parcours">Show my pathway</button>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <!-- ACCOUNTING intake -->
+  <div class="screen" id="screen-accounting">
+    <div class="card">
+      <div class="eyebrow" data-en="Business &amp; Accounting — Massachusetts" data-ht="Biznis &amp; Kontablite — Massachusetts" data-fr="Gestion &amp; Comptabilité — Massachusetts" data-es="Administración &amp; Contabilidad — Massachusetts" data-pt="Administração &amp; Contabilidade — Massachusetts">Business &amp; Accounting — Massachusetts</div>
+
+      <div class="field">
+        <label for="ac-goal" data-en="What is your goal?" data-ht="Kisa ou vle reyalize?" data-fr="Quel est votre objectif ?" data-es="¿Cuál es tu objetivo?" data-pt="Qual é o seu objetivo?">What is your goal?</label>
+        <div class="select-wrap">
+          <select id="ac-goal">
+            <option value="bookkeeper" data-en="Start working quickly — bookkeeper or accounting clerk" data-ht="Kòmanse travay vit — kontab oswa klèk kontablite" data-fr="Commencer à travailler rapidement — comptable ou employé de comptabilité" data-es="Empezar a trabajar rápido — contador o empleado de contabilidad" data-pt="Começar a trabalhar rápido — contador ou auxiliar de contabilidade">Start working quickly — bookkeeper or accounting clerk</option>
+            <option value="cpa" data-en="Become a licensed CPA — full credential recognition" data-ht="Vin yon CPA lisansye — rekonesans konplè kredansyèl" data-fr="Devenir CPA agréé — reconnaissance complète du diplôme" data-es="Convertirme en CPA con licencia — reconocimiento completo del título" data-pt="Tornar-me CPA licenciado — reconhecimento completo do diploma">Become a licensed CPA — full credential recognition</option>
+          </select>
+        </div>
+        <div class="hint" data-en="Many people start as a bookkeeper for income while working toward CPA licensure." data-ht="Anpil moun kòmanse kòm kontab pou touche pandan y ap travay pou lisans CPA." data-fr="Beaucoup commencent comme comptable pour un revenu tout en travaillant vers la licence CPA." data-es="Muchos empiezan como contador para tener ingresos mientras trabajan hacia la licencia CPA." data-pt="Muitos começam como contador para ter renda enquanto trabalham para a licença CPA.">Many people start as a bookkeeper for income while working toward CPA licensure.</div>
+      </div>
+
+      <button class="primary" onclick="generatePlan('accounting')" data-en="Show my pathway" data-ht="Montre chemen mwen" data-fr="Montrer mon parcours" data-es="Mostrar mi camino" data-pt="Mostrar meu caminho">Show my pathway</button>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines" data-es="← Todos los campos" data-pt="← Todas as áreas">← All fields</button>
+  </div>
+
+  <!-- CAREER QUIZ -->
+  <div class="screen" id="screen-quiz">
+    <div class="card">
+      <div class="eyebrow" data-en="Career Finder" data-ht="Chèche Karyè" data-fr="Trouveur de Carrière">Career Finder</div>
+
+      <div class="prefill-note" id="quizPrefillNote"></div>
+
+      <div class="field">
+        <label for="q1" data-en="What kind of work feels right to you?" data-ht="Ki kalite travay ki santi bon pou ou?" data-fr="Quel type de travail vous convient ?" data-es="¿Qué tipo de trabajo te queda bien?" data-pt="Que tipo de trabalho combina com você?">What kind of work feels right to you?</label>
+        <div class="select-wrap">
+          <select id="q1">
+            <option value="care" data-en="Caring for people — health, patients, elderly" data-ht="Pran swen moun — sante, pasyan, granmoun" data-fr="Prendre soin des gens — santé, patients, personnes âgées" data-es="Cuidar personas — salud, pacientes, adultos mayores" data-pt="Cuidar de pessoas — saúde, pacientes, idosos">Caring for people — health, patients, elderly</option>
+            <option value="kids" data-en="Working with children — teaching or childcare" data-ht="Travay ak timoun — anseyman oswa gadri" data-fr="Travailler avec des enfants — enseignement ou garde" data-es="Trabajar con niños — enseñanza o cuidado infantil" data-pt="Trabalhar com crianças — ensino ou cuidado infantil">Working with children — teaching or childcare</option>
+            <option value="move" data-en="Driving and being on the move" data-ht="Kondwi ak deplase" data-fr="Conduire et être en mouvement" data-es="Conducir y estar en movimiento" data-pt="Dirigir e estar em movimento">Driving and being on the move</option>
+            <option value="build" data-en="Building and fixing things — trades, construction" data-ht="Bati ak repare bagay — metye, konstriksyon" data-fr="Construire et réparer — métiers, construction" data-es="Construir y arreglar cosas — oficios, construcción" data-pt="Construir e consertar coisas — ofícios, construção">Building and fixing things — trades, construction</option>
+            <option value="food" data-en="Cooking or working in restaurants and hotels" data-ht="Kwizin oswa travay nan restoran ak otèl" data-fr="Cuisine ou travail en restaurant et hôtel" data-es="Cocinar o trabajar en restaurantes y hoteles" data-pt="Cozinhar ou trabalhar em restaurantes e hotéis">Cooking or working in restaurants and hotels</option>
+            <option value="beauty" data-en="Beauty, hair, and personal care" data-ht="Bote, cheve, ak swen pèsonèl" data-fr="Beauté, coiffure et soins personnels" data-es="Belleza, cabello y cuidado personal" data-pt="Beleza, cabelo e cuidados pessoais">Beauty, hair, and personal care</option>
+            <option value="detail" data-en="Organized office, admin, or accounting work" data-ht="Travay biwo òganize, admin, oswa kontablite" data-fr="Travail de bureau organisé, admin ou comptabilité" data-es="Trabajo de oficina organizado, admin o contabilidad" data-pt="Trabalho de escritório organizado, admin ou contabilidade">Organized office, admin, or accounting work</option>
+            <option value="law" data-en="Law, legal work, or helping people with their rights" data-ht="Lwa, travay legal, oswa ede moun ak dwa yo" data-fr="Droit, travail juridique ou aider les gens avec leurs droits" data-es="Derecho, trabajo legal o ayudar a personas con sus derechos" data-pt="Direito, trabalho jurídico ou ajudar pessoas com seus direitos">Law, legal work, or helping people with their rights</option>
+            <option value="safety" data-en="Safety, security, or law enforcement" data-ht="Sekirite, pwoteksyon, oswa lapolis" data-fr="Sécurité ou application de la loi" data-es="Seguridad o aplicación de la ley" data-pt="Segurança ou aplicação da lei">Safety, security, or law enforcement</option>
+            <option value="public" data-en="Government or community service work" data-ht="Travay gouvènman oswa sèvis kominotè" data-fr="Travail gouvernemental ou service communautaire" data-es="Trabajo gubernamental o servicio comunitario" data-pt="Trabalho governamental ou serviço comunitário">Government or community service work</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="q2" data-en="How soon do you need to start earning?" data-ht="Kilè ou bezwen kòmanse touche?" data-fr="Quand devez-vous commencer à gagner ?">How soon do you need to start earning?</label>
+        <div class="select-wrap">
+          <select id="q2">
+            <option value="now" data-en="As soon as possible — weeks" data-ht="Pi vit posib — semèn" data-fr="Dès que possible — semaines">As soon as possible — weeks</option>
+            <option value="months" data-en="I can wait a few months" data-ht="Mwen ka tann kèk mwa" data-fr="Je peux attendre quelques mois">I can wait a few months</option>
+            <option value="train" data-en="I can train for a year or more" data-ht="Mwen ka fòme pou yon ane oswa plis" data-fr="Je peux me former un an ou plus">I can train for a year or more</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="q3" data-en="Are you okay with physical work on your feet?" data-ht="Èske travay fizik sou pye ou oke pou ou?" data-fr="Le travail physique debout vous convient-il ?">Are you okay with physical work on your feet?</label>
+        <div class="select-wrap">
+          <select id="q3">
+            <option value="yes" data-en="Yes, that's fine" data-ht="Wi, sa oke" data-fr="Oui, ça va">Yes, that's fine</option>
+            <option value="light" data-en="I'd prefer lighter work" data-ht="Mwen ta prefere travay pi lejè" data-fr="Je préférerais un travail plus léger">I'd prefer lighter work</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="q4" data-en="Where would you rather spend your day?" data-ht="Ki kote ou ta pito pase jounen ou?" data-fr="Où préféreriez-vous passer votre journée ?" data-es="¿Dónde preferirías pasar tu día?" data-pt="Onde você preferiria passar o dia?">Where would you rather spend your day?</label>
+        <div class="select-wrap">
+          <select id="q4">
+            <option value="health" data-en="Hospitals or care settings" data-ht="Lopital oswa kote swen" data-fr="Hôpitaux ou lieux de soins" data-es="Hospitales o lugares de cuidado" data-pt="Hospitais ou locais de cuidado">Hospitals or care settings</option>
+            <option value="school" data-en="Schools or childcare" data-ht="Lekòl oswa gadri" data-fr="Écoles ou garde d'enfants" data-es="Escuelas o cuidado infantil" data-pt="Escolas ou cuidado infantil">Schools or childcare</option>
+            <option value="road" data-en="On the road or outdoors" data-ht="Sou wout la oswa deyò" data-fr="Sur la route ou en extérieur" data-es="En la carretera o al aire libre" data-pt="Na estrada ou ao ar livre">On the road or outdoors</option>
+            <option value="office" data-en="Offices, courts, or pharmacies" data-ht="Biwo, tribinal, oswa famasi" data-fr="Bureaux, tribunaux ou pharmacies" data-es="Oficinas, tribunales o farmacias" data-pt="Escritórios, tribunais ou farmácias">Offices, courts, or pharmacies</option>
+            <option value="food" data-en="Kitchens or restaurants" data-ht="Kwizin oswa restoran" data-fr="Cuisines ou restaurants" data-es="Cocinas o restaurantes" data-pt="Cozinhas ou restaurantes">Kitchens or restaurants</option>
+            <option value="beauty" data-en="Salons or beauty spaces" data-ht="Salon oswa espas bote" data-fr="Salons ou espaces beauté" data-es="Salones o espacios de belleza" data-pt="Salões ou espaços de beleza">Salons or beauty spaces</option>
+            <option value="community" data-en="Community centers or government offices" data-ht="Sant kominotè oswa biwo gouvènman" data-fr="Centres communautaires ou bureaux gouvernementaux" data-es="Centros comunitarios u oficinas gubernamentales" data-pt="Centros comunitários ou repartições governamentais">Community centers or government offices</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="primary" onclick="runQuiz()" data-en="Show my matches" data-ht="Montre match mwen yo" data-fr="Montrer mes correspondances">Show my matches</button>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <!-- QUIZ RESULTS -->
+  <div class="screen" id="screen-quiz-results">
+    <div class="card">
+      <div class="doc-header">
+        <div class="eyebrow" data-en="Your Career Matches" data-ht="Match Karyè Ou Yo" data-fr="Vos Correspondances de Carrière">Your Career Matches</div>
+        <h2 data-en="Careers that fit your answers" data-ht="Karyè ki matche ak repons ou yo" data-fr="Des carrières qui correspondent à vos réponses">Careers that fit your answers</h2>
+        <div class="meta" data-en="Income figures: U.S. BLS national medians" data-ht="Chif revni: medyàn nasyonal BLS Etazini" data-fr="Chiffres de revenus : médianes nationales BLS des États-Unis">Income figures: U.S. BLS national medians</div>
+      </div>
+      <div id="quizMatches"></div>
+      <div class="disclaimer" data-en="Income figures are national medians from the U.S. Bureau of Labor Statistics — pay varies by state, city, and employer. These are suggestions to explore, not guarantees." data-ht="Chif revni yo se medyàn nasyonal Biwo Estatistik Travay Etazini — salè varye selon eta, vil, ak anplwayè. Sa yo se sijesyon pou eksplore, pa garanti." data-fr="Les chiffres de revenus sont des médianes nationales du Bureau of Labor Statistics des États-Unis — la rémunération varie selon l'État, la ville et l'employeur. Ce sont des suggestions à explorer, pas des garanties.">Income figures are national medians from the U.S. Bureau of Labor Statistics — pay varies by state, city, and employer. These are suggestions to explore, not guarantees.</div>
+    </div>
+    <button class="back-link" onclick="showScreen('screen-quiz')" data-en="← Change my answers" data-ht="← Chanje repons mwen yo" data-fr="← Modifier mes réponses">← Change my answers</button>
+    &nbsp;&nbsp;
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <!-- UPGRADE: already working -->
+  <div class="screen" id="screen-upgrade">
+    <div class="card">
+      <div class="eyebrow" data-en="Your Next Step Up" data-ht="Pwochen Etap Ou Pi Wo" data-fr="Votre Prochaine Étape" data-es="Tu Próximo Paso" data-pt="Seu Próximo Passo">Your Next Step Up</div>
+
+      <div class="field">
+        <label for="u-job" data-en="What do you currently do?" data-ht="Kisa ou fè kounye a?" data-fr="Que faites-vous actuellement ?" data-es="¿Qué haces actualmente?" data-pt="O que você faz atualmente?">What do you currently do?</label>
+        <div class="select-wrap">
+          <select id="u-job">
+            <option value="cna" data-en="CNA — Certified Nurse Aide" data-ht="CNA — Asistan Enfimyè Sètifye" data-fr="CNA — Aide-soignant certifié" data-es="CNA — Asistente de enfermería certificado" data-pt="CNA — Auxiliar de enfermagem certificado">CNA — Certified Nurse Aide</option>
+            <option value="hha" data-en="HHA — Home Health Aide" data-ht="HHA — Èd Sante nan Kay" data-fr="HHA — Aide à domicile" data-es="HHA — Asistente de salud en el hogar" data-pt="HHA — Cuidador domiciliar">HHA — Home Health Aide</option>
+            <option value="uber" data-en="Rideshare / delivery driver (Uber, Lyft, DoorDash…)" data-ht="Chofè pou lokatè / livrezon (Uber, Lyft, DoorDash…)" data-fr="Chauffeur VTC / livraison (Uber, Lyft, DoorDash…)" data-es="Conductor de transporte / entrega (Uber, Lyft, DoorDash…)" data-pt="Motorista de transporte / entrega (Uber, Lyft, DoorDash…)">Rideshare / delivery driver (Uber, Lyft, DoorDash…)</option>
+            <option value="cook" data-en="Cook / kitchen worker" data-ht="Kizinyè / travayè kwizin" data-fr="Cuisinier / employé de cuisine" data-es="Cocinero / trabajador de cocina" data-pt="Cozinheiro / trabalhador de cozinha">Cook / kitchen worker</option>
+            <option value="security" data-en="Security guard" data-ht="Gadyen sekirite" data-fr="Agent de sécurité" data-es="Guardia de seguridad" data-pt="Guarda de segurança">Security guard</option>
+            <option value="para" data-en="School paraprofessional / teacher's aide" data-ht="Parapwofesyonèl lekòl / èd pwofesè" data-fr="Paraprofessionnel scolaire / aide-enseignant" data-es="Paraprofesional escolar / asistente de maestro" data-pt="Paraprofissional escolar / auxiliar de professor">School paraprofessional / teacher's aide</option>
+            <option value="cosmo" data-en="Cosmetology student / unlicensed stylist" data-ht="Etidyan kosmetoloji / estilis san lisans" data-fr="Étudiant en cosmétologie / styliste non licencié" data-es="Estudiante de cosmetología / estilista sin licencia" data-pt="Estudante de cosmetologia / estilista sem licença">Cosmetology student / unlicensed stylist</option>
+            <option value="laborer" data-en="Construction / general laborer" data-ht="Konstriksyon / travayè jeneral" data-fr="Construction / ouvrier général" data-es="Construcción / trabajador general" data-pt="Construção / trabalhador geral">Construction / general laborer</option>
+          </select>
+        </div>
+        <div class="hint" data-en="We'll show you what your current experience is already worth — and exactly what to do next." data-ht="N ap montre ou sa eksperyans aktyèl ou deja vo — ak egzakteman sa pou fè apre." data-fr="Nous vous montrerons ce que votre expérience actuelle vaut déjà — et exactement quoi faire ensuite." data-es="Te mostraremos lo que tu experiencia actual ya vale — y exactamente qué hacer después." data-pt="Mostraremos o que sua experiência atual já vale — e exatamente o que fazer a seguir.">We'll show you what your current experience is already worth — and exactly what to do next.</div>
+      </div>
+
+      <div class="state-note" id="upgradeStateNote"></div>
+      <button class="primary" onclick="generateUpgrade()" data-en="Show my path up" data-ht="Montre chemen monte mwen" data-fr="Montrer mon chemin de progression" data-es="Mostrar mi camino de avance" data-pt="Mostrar meu caminho de avanço">Show my path up</button>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← Back" data-ht="← Tounen" data-fr="← Retour" data-es="← Atrás" data-pt="← Voltar">← Back</button>
+  </div>
+
+  <!-- UPGRADE RESULTS -->
+  <div class="screen" id="screen-upgrade-results">
+    <div class="card">
+      <div class="doc-header">
+        <div class="eyebrow" data-en="Your Advancement Path" data-ht="Chemen Avanse Ou" data-fr="Votre Parcours de Progression" data-es="Tu Camino de Avance" data-pt="Seu Caminho de Avanço">Your Advancement Path</div>
+        <h2 id="upgradeTitleEl"></h2>
+        <div class="meta" id="upgradeMetaEl"></div>
+      </div>
+      <div class="status-badge" id="upgradeBadgeEl"></div>
+      <div class="summary-strip" id="upgradeSummaryStrip"></div>
+      <div id="upgradeContent"></div>
+      <div id="upgradeLadderWrap"></div>
+      <div class="action-box" id="upgradeActionBox" style="display:none;">
+        <div class="eyebrow" data-en="Do this first" data-ht="Fè sa an premye" data-fr="Faites ceci en premier" data-es="Haz esto primero" data-pt="Faça isto primeiro">Do this first</div>
+        <p id="upgradeFirstAction"></p>
+      </div>
+      <div class="disclaimer" id="upgradeDisclaimer"></div>
+    </div>
+    <div class="share-row">
+      <button class="btn-whatsapp" onclick="shareUpgradeWhatsApp()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.86L.057 23.5l5.79-1.519A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.371l-.36-.214-3.727.977.994-3.63-.234-.373A9.818 9.818 0 0112 2.182c5.422 0 9.818 4.396 9.818 9.818 0 5.423-4.396 9.818-9.818 9.818z"/></svg>
+        <span data-en="WhatsApp" data-ht="WhatsApp" data-fr="WhatsApp" data-es="WhatsApp" data-pt="WhatsApp">WhatsApp</span>
+      </button>
+      <button class="btn-share" onclick="shareNative('upgrade')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <span data-en="Share" data-ht="Pataje" data-fr="Partager" data-es="Compartir" data-pt="Compartilhar">Share</span>
+      </button>
+    </div>
+    <div id="planReportLink"></div>
+    <div id="planFAQ"></div>
+    <br>
+    <button class="back-link" onclick="showScreen('screen-upgrade')" data-en="← Change my answer" data-ht="← Chanje repons mwen" data-fr="← Modifier ma réponse" data-es="← Cambiar mi respuesta" data-pt="← Mudar minha resposta">← Change my answer</button>
+    &nbsp;&nbsp;
+    <button class="back-link" onclick="goHome()" data-en="← All options" data-ht="← Tout opsyon yo" data-fr="← Toutes les options" data-es="← Todas las opciones" data-pt="← Todas as opções">← All options</button>
+  </div>
+
+  <!-- LETTER EXPLAINER -->
+  <div class="screen" id="screen-explain">
+    <div class="card">
+      <div class="eyebrow" data-en="Letter Explainer" data-ht="Eksplikatè Lèt" data-fr="Explicateur de Lettres">Letter Explainer</div>
+
+      <input type="file" id="letterPhoto" accept="image/*" capture="environment" style="display:none;" onchange="handlePhoto(this)">
+      <button class="photo-btn" onclick="document.getElementById('letterPhoto').click()">
+        <span>📷</span>
+        <span data-en="Take a photo of your letter" data-ht="Pran yon foto lèt ou a" data-fr="Prenez une photo de votre lettre">Take a photo of your letter</span>
+      </button>
+      <img id="photoPreview" class="photo-preview" alt="Letter preview">
+
+      <div class="section-sub" style="text-align:center;margin:4px 0 12px;" data-en="— or paste the text —" data-ht="— oswa kole tèks la —" data-fr="— ou collez le texte —">— or paste the text —</div>
+
+      <div class="field">
+        <textarea id="letterText" rows="7" placeholder="Dear applicant, your application is deficient pending receipt of..."></textarea>
+        <div class="hint" data-en="Works with letters from licensing boards, credential evaluators, schools, or state agencies. Your letter is not stored." data-ht="Mache ak lèt ki soti nan konsèy lisans, evalyatè kredansyèl, lekòl, oswa ajans eta. Lèt ou a pa estoke." data-fr="Fonctionne avec les lettres des conseils de licence, évaluateurs de diplômes, écoles ou agences d'État. Votre lettre n'est pas conservée.">Works with letters from licensing boards, credential evaluators, schools, or state agencies. Your letter is not stored.</div>
+      </div>
+
+      <button class="primary" onclick="explainLetter()" data-en="Explain this letter" data-ht="Eksplike lèt sa a" data-fr="Expliquer cette lettre">Explain this letter</button>
+      <div id="explainResult" style="display:none;margin-top:20px;padding:16px;background:var(--card-mid);border-radius:4px;font-size:14px;line-height:1.6;white-space:pre-wrap;"></div>
+      <div class="disclaimer" data-en="This explanation is AI-generated help with understanding, not legal advice. For immigration documents, always verify with an accredited representative or attorney. Deadlines shown in your letter are always the ones that count." data-ht="Eksplikasyon sa a se èd AI pou konprann, se pa konsèy legal. Pou dokiman imigrasyon, toujou verifye ak yon reprezantan akredite oswa avoka. Dat limit ki nan lèt ou a se yo ki konte toujou." data-fr="Cette explication est une aide générée par IA pour comprendre, pas un conseil juridique. Pour les documents d'immigration, vérifiez toujours avec un représentant accrédité ou un avocat. Les échéances indiquées dans votre lettre sont toujours celles qui comptent.">This explanation is AI-generated help with understanding, not legal advice. For immigration documents, always verify with an accredited representative or attorney. Deadlines shown in your letter are always the ones that count.</div>
+    </div>
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <!-- LETTER GENERATOR -->
+  <div class="screen" id="screen-lettergen">
+    <div class="card">
+      <div class="eyebrow" data-en="Transcript Request Letter" data-ht="Lèt Demann Transkripsyon" data-fr="Lettre de Demande de Relevés">Transcript Request Letter</div>
+      <div class="field">
+        <label for="lg-name" data-en="Your full name (as your school knows it)" data-ht="Non konplè ou (jan lekòl ou konnen li)" data-fr="Votre nom complet (tel que votre école le connaît)">Your full name (as your school knows it)</label>
+        <input type="text" id="lg-name">
+      </div>
+      <div class="field">
+        <label for="lg-school" data-en="School name" data-ht="Non lekòl la" data-fr="Nom de l'école">School name</label>
+        <input type="text" id="lg-school">
+      </div>
+      <div class="field">
+        <label for="lg-years" data-en="Years you attended (e.g. 2010–2014)" data-ht="Ane ou te ale (egz. 2010–2014)" data-fr="Années de fréquentation (ex. 2010–2014)">Years you attended (e.g. 2010–2014)</label>
+        <input type="text" id="lg-years">
+      </div>
+      <div class="field">
+        <label for="lg-lang" data-en="Letter language" data-ht="Lang lèt la" data-fr="Langue de la lettre">Letter language</label>
+        <div class="select-wrap">
+          <select id="lg-lang">
+            <option value="fr" data-en="French (for francophone schools)" data-ht="Franse (pou lekòl frankofòn)" data-fr="Français (pour les écoles francophones)">French (for francophone schools)</option>
+            <option value="es" data-en="Spanish (for Latin American schools)" data-ht="Panyòl (pou lekòl Amerik Latin)" data-fr="Espagnol (pour les écoles latino-américaines)">Spanish (for Latin American schools)</option>
+            <option value="pt" data-en="Portuguese (for Brazilian schools)" data-ht="Pòtigè (pou lekòl brezilyen)" data-fr="Portugais (pour les écoles brésiliennes)">Portuguese (for Brazilian schools)</option>
+            <option value="en" data-en="English" data-ht="Anglè" data-fr="Anglais">English</option>
+          </select>
+        </div>
+      </div>
+      <button class="primary" onclick="generateLetter()" data-en="Generate my letter" data-ht="Jenere lèt mwen" data-fr="Générer ma lettre">Generate my letter</button>
+      <div id="letterOutput" style="display:none;margin-top:20px;padding:16px;background:var(--card-bg);border:1.5px solid var(--line);border-radius:4px;font-size:13.5px;line-height:1.7;white-space:pre-wrap;font-family:Georgia,serif;"></div>
+      <button id="copyLetterBtn" class="primary" style="display:none;margin-top:12px;background:var(--green);" onclick="copyLetter()" data-en="Copy letter" data-ht="Kopye lèt la" data-fr="Copier la lettre">Copy letter</button>
+    </div>
+    <button class="back-link" onclick="backToIntake()" data-en="← Back to my plan" data-ht="← Tounen nan plan mwen" data-fr="← Retour à mon plan">← Back to my plan</button>
+  </div>
+
+  <!-- RESULTS (shared) -->
+  <div class="screen" id="screen-results">
+    <div class="card">
+      <div class="doc-header">
+        <div class="eyebrow" data-en="Your Pathway Plan" data-ht="Plan Chemen Ou" data-fr="Votre Plan de Parcours">Your Pathway Plan</div>
+        <h2 id="pathTitle"></h2>
+        <div class="meta" id="pathMeta"></div>
+      </div>
+
+      <div class="status-badge" id="statusBadge"></div>
+
+      <div class="summary-strip" id="pathSummaryStrip"></div>
+
+      <div id="pathProgressWrap" class="progress-wrap" style="display:none;">
+        <div class="progress-label">
+          <span id="progressLabel">0 of 0 steps</span>
+          <span class="pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+
+      <div class="section-title" data-en="Your next steps in order" data-ht="Pwochen etap ou yo nan lòd" data-fr="Vos prochaines étapes dans l'ordre">Your next steps in order</div>
+      <div class="section-sub" data-en="Each step must be completed before the next one" data-ht="Chak etap dwe fini anvan pwochen an" data-fr="Chaque étape doit être terminée avant la suivante">Each step must be completed before the next one</div>
+
+      <div id="stepsList"></div>
+
+      <div class="action-box">
+        <div class="eyebrow" data-en="Do this first" data-ht="Fè sa an premye" data-fr="Faites ceci en premier">Do this first</div>
+        <p id="firstAction"></p>
+      </div>
+
+      <div class="disclaimer" id="disclaimerText"></div>
+    </div>
+
+    <div class="share-row">
+      <button class="btn-whatsapp" onclick="shareWhatsApp()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.86L.057 23.5l5.79-1.519A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.371l-.36-.214-3.727.977.994-3.63-.234-.373A9.818 9.818 0 0112 2.182c5.422 0 9.818 4.396 9.818 9.818 0 5.423-4.396 9.818-9.818 9.818z"/></svg>
+        <span data-en="WhatsApp" data-ht="WhatsApp" data-fr="WhatsApp" data-es="WhatsApp" data-pt="WhatsApp">WhatsApp</span>
+      </button>
+      <button class="btn-share" onclick="shareNative('plan')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <span data-en="Share" data-ht="Pataje" data-fr="Partager" data-es="Compartir" data-pt="Compartilhar">Share</span>
+      </button>
+    </div>
+    <div id="upgradeReportLink"></div>
+    <div id="upgradeFAQ"></div>
+
+    <button class="back-link" onclick="backToIntake()" data-en="← Change my answers" data-ht="← Chanje repons mwen yo" data-fr="← Modifier mes réponses">← Change my answers</button>
+    &nbsp;&nbsp;
+    <button class="back-link" onclick="goHome()" data-en="← All fields" data-ht="← Tout domèn yo" data-fr="← Tous les domaines">← All fields</button>
+  </div>
+
+  <div class="screen" id="screen-glossary">
+    <div class="eyebrow" data-en="Status &amp; Form Explainers" data-ht="Eksplikasyon Estati ak Fòm" data-fr="Explications de Statut et Formulaires">Status &amp; Form Explainers</div>
+    <h2 data-en="Understand your options — in plain language" data-ht="Konprann opsyon ou yo — nan lang senp" data-fr="Comprenez vos options — en langage simple">Understand your options — in plain language</h2>
+
+    <div class="glossary-notice">
+      <strong data-en="This is general information, not legal advice." data-ht="Sa se enfòmasyon jeneral, se pa konsèy legal." data-fr="Ceci est une information générale, pas un conseil juridique.">This is general information, not legal advice.</strong>
+      <span data-en=" ClearImmi is not a law firm. These pages explain common terms and forms — they don't tell you what applies to your specific case. For that, talk to a licensed attorney or a DOJ-accredited representative." data-ht=" ClearImmi se pa yon biwo avoka. Paj sa yo eksplike tèm ak fòm komen — yo pa di ou sa ki aplike pou ka espesifik ou. Pou sa, pale ak yon avoka gen lisans oswa yon reprezantan akredite pa DOJ." data-fr=" ClearImmi n'est pas un cabinet d'avocats. Ces pages expliquent des termes et formulaires courants — elles ne vous disent pas ce qui s'applique à votre cas précis. Pour cela, consultez un avocat agréé ou un représentant accrédité par le DOJ."> ClearImmi is not a law firm. These pages explain common terms and forms — they don't tell you what applies to your specific case. For that, talk to a licensed attorney or a DOJ-accredited representative.</span>
+    </div>
+
+    <div class="glossary-cat-label" data-en="STATUS TYPES" data-ht="TIP ESTATI" data-fr="TYPES DE STATUT">STATUS TYPES</div>
+    <div class="glossary-list" id="glossaryStatusList"></div>
+
+    <div class="glossary-cat-label" data-en="FORMS" data-ht="FÒM" data-fr="FORMULAIRES">FORMS</div>
+    <div class="glossary-list" id="glossaryFormsList"></div>
+
+    <div class="find-help-box">
+      <h4 data-en="Need help with your specific situation?" data-ht="Bezwen èd pou sitiyasyon espesifik ou?" data-fr="Besoin d'aide pour votre situation précise ?">Need help with your specific situation?</h4>
+      <p data-en="Find a free or low-cost accredited representative or attorney near you through the Department of Justice's official list." data-ht="Jwenn yon reprezantan akredite oswa avoka gratis oswa a pri ba toupre ou nan lis ofisyèl Depatman Jistis la." data-fr="Trouvez un représentant accrédité ou un avocat gratuit ou à faible coût près de chez vous grâce à la liste officielle du Département de la Justice.">Find a free or low-cost accredited representative or attorney near you through the Department of Justice's official list.</p>
+      <a class="btn-find-help" href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener" data-en="Find free/low-cost help →" data-ht="Jwenn èd gratis/ba pri →" data-fr="Trouver une aide gratuite →">Find free/low-cost help →</a>
+    </div>
+
+    <button class="back-link" onclick="goHome()" data-en="← Home" data-ht="← Akèy" data-fr="← Accueil">← Home</button>
+  </div>
+
+  <div class="screen" id="screen-glossary-entry">
+    <button class="back-link" onclick="showScreen('screen-glossary')" data-en="← All explainers" data-ht="← Tout eksplikasyon" data-fr="← Tous les explications" style="margin-bottom:14px;">← All explainers</button>
+
+    <div class="card">
+      <div class="doc-header">
+        <div class="eyebrow" id="glossaryEntryEyebrow"></div>
+        <h2 id="glossaryEntryTitle"></h2>
+      </div>
+
+      <div class="as-of-badge" id="glossaryEntryDate"></div>
+
+      <div id="glossaryEntryVolatility"></div>
+
+      <div class="glossary-view-toggle">
+        <button id="viewSimpleBtn" class="active" onclick="setGlossaryView('simple')" data-en="Simple points" data-ht="Pwen senp" data-fr="Points simples">Simple points</button>
+        <button id="viewFullBtn" onclick="setGlossaryView('full')" data-en="Full explanation" data-ht="Eksplikasyon konplè" data-fr="Explication complète">Full explanation</button>
+      </div>
+
+      <ul class="simple-points" id="glossarySimpleView"></ul>
+      <div class="full-text-body" id="glossaryFullView" style="display:none;"></div>
+
+      <div id="glossaryFormFields"></div>
+
+      <div class="glossary-sources" id="glossaryEntrySources"></div>
+    </div>
+
+    <div class="find-help-box">
+      <h4 data-en="Is this about your specific case?" data-ht="Èske sa se sou ka espesifik ou?" data-fr="S'agit-il de votre cas précis ?">Is this about your specific case?</h4>
+      <p data-en="This page explains general concepts, not your situation. Talk to a licensed attorney or DOJ-accredited representative for advice you can act on." data-ht="Paj sa a eksplike konsèp jeneral, se pa sitiyasyon ou. Pale ak yon avoka gen lisans oswa reprezantan akredite pa DOJ pou konsèy ou ka aji sou li." data-fr="Cette page explique des concepts généraux, pas votre situation. Consultez un avocat agréé ou un représentant accrédité par le DOJ pour des conseils sur lesquels agir.">This page explains general concepts, not your situation. Talk to a licensed attorney or DOJ-accredited representative for advice you can act on.</p>
+      <a class="btn-find-help" href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener" data-en="Find free/low-cost help →" data-ht="Jwenn èd gratis/ba pri →" data-fr="Trouver une aide gratuite →">Find free/low-cost help →</a>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-filing-help">
+    <button class="back-link" onclick="showScreen('screen-glossary-entry')" data-en="← Back to form info" data-ht="← Tounen nan enfo fòm" data-fr="← Retour aux infos du formulaire" style="margin-bottom:14px;">← Back to form info</button>
+
+    <div class="card">
+      <div class="eyebrow" data-en="Filing Help" data-ht="Èd Ranpli" data-fr="Aide au Dépôt">Filing Help</div>
+      <h2 id="filingHelpTitle"></h2>
+
+      <div class="glossary-notice">
+        <strong data-en="This explains each field on YOUR form — it is not legal advice." data-ht="Sa eksplike chak chan sou FÒM PA OU — se pa konsèy legal." data-fr="Ceci explique chaque champ de VOTRE formulaire — ce n'est pas un conseil juridique.">This explains each field on YOUR form — it is not legal advice.</strong>
+        <span data-en=" We'll tell you what each field is asking for and how to fill in the factual parts. For any field that needs a legal decision (like your basis for asylum), we'll flag it and point you to a real accredited representative instead of guessing." data-ht=" Nou pral di ou sa chak chan mande ak kijan pou ranpli pati faktyèl yo. Pou nenpòt chan ki bezwen yon desizyon legal (tankou baz azil ou), nou pral make li epi voye ou bay yon vrè reprezantan akredite olye de devine." data-fr=" Nous vous dirons ce que demande chaque champ et comment remplir les parties factuelles. Pour tout champ nécessitant une décision juridique (comme votre motif d'asile), nous le signalerons et vous orienterons vers un vrai représentant accrédité plutôt que de deviner."> We'll tell you what each field is asking for and how to fill in the factual parts. For any field that needs a legal decision (like your basis for asylum), we'll flag it and point you to a real accredited representative instead of guessing.</span>
+      </div>
+
+      <input type="file" id="formPhoto" accept="image/*" capture="environment" style="display:none;" onchange="handleFormPhoto(this)">
+      <button class="photo-btn" onclick="document.getElementById('formPhoto').click()">
+        <span>📷</span>
+        <span data-en="Take a photo of your form" data-ht="Pran yon foto fòm ou a" data-fr="Prenez une photo de votre formulaire">Take a photo of your form</span>
+      </button>
+      <img id="formPhotoPreview" class="photo-preview" alt="Form preview">
+
+      <div class="section-sub" style="text-align:center;margin:4px 0 12px;" data-en="— or paste the field labels/text —" data-ht="— oswa kole non chan yo/tèks —" data-fr="— ou collez les libellés des champs —">— or paste the field labels/text —</div>
+
+      <div class="field">
+        <textarea id="formText" rows="6" placeholder="Part 1. Information About You — 1.a. Family Name (Last Name)..."></textarea>
+        <div class="hint" data-en="Paste the section you're stuck on, or a photo of it. Nothing is stored." data-ht="Kole seksyon ou bloke a, oswa yon foto li. Anyen pa estoke." data-fr="Collez la section où vous êtes bloqué, ou une photo. Rien n'est conservé.">Paste the section you're stuck on, or a photo of it. Nothing is stored.</div>
+      </div>
+
+      <button class="primary" onclick="explainFormFields()" data-en="Explain these fields" data-ht="Eksplike chan sa yo" data-fr="Expliquer ces champs">Explain these fields</button>
+
+      <div id="filingHelpResult" class="filing-help-result" style="display:none;"></div>
+
+      <div class="disclaimer" style="margin-top:16px;" data-en="This is AI-generated help understanding form fields, not legal advice. It never tells you what to write for questions requiring legal judgment. Always verify with an accredited representative or attorney before filing." data-ht="Sa se èd AI pou konprann chan fòm, se pa konsèy legal. Li pa janm di ou sa pou ekri pou kesyon ki bezwen jijman legal. Toujou verifye ak yon reprezantan akredite oswa avoka anvan ou depoze." data-fr="Ceci est une aide générée par IA pour comprendre les champs de formulaire, pas un conseil juridique. Elle ne vous dit jamais quoi écrire pour les questions nécessitant un jugement juridique. Vérifiez toujours avec un représentant accrédité ou un avocat avant de déposer.">This is AI-generated help understanding form fields, not legal advice. It never tells you what to write for questions requiring legal judgment. Always verify with an accredited representative or attorney before filing.</div>
+    </div>
+
+    <div class="find-help-box">
+      <h4 data-en="Ready to file?" data-ht="Pare pou depoze?" data-fr="Prêt à déposer ?">Ready to file?</h4>
+      <p data-en="Even with this help, a free review by an accredited representative before you submit can catch mistakes that are hard to undo." data-ht="Menm ak èd sa a, yon revizyon gratis pa yon reprezantan akredite anvan ou soumèt ka kenbe erè ki difisil pou defèt." data-fr="Même avec cette aide, une révision gratuite par un représentant accrédité avant de soumettre peut détecter des erreurs difficiles à corriger.">Even with this help, a free review by an accredited representative before you submit can catch mistakes that are hard to undo.</p>
+      <a class="btn-find-help" href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener" data-en="Find free/low-cost help →" data-ht="Jwenn èd gratis/ba pri →" data-fr="Trouver une aide gratuite →">Find free/low-cost help →</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/config.js"></script>
+
+<script src="js/data/states/ma.js"></script>
+<script src="js/data/states/fl.js"></script>
+<script src="js/data/careers.js"></script>
+<script src="js/data/glossary.js"></script>
+<script src="js/data/updates.js"></script>
+<script src="js/data/translations.js"></script>
+<script src="js/data/faq.js"></script>
+
+<script src="js/app/storage.js"></script>
+<script src="js/app/analytics.js"></script>
+<script src="js/app/navigation.js"></script>
+<script src="js/app/render-pathways.js"></script>
+<script src="js/app/render-quiz.js"></script>
+<script src="js/app/render-glossary.js"></script>
+<script src="js/app/render-updates.js"></script>
+<script src="js/app/render-home.js"></script>
+<script src="js/app/ai-features.js"></script>
+<script src="js/app/share.js"></script>
+<script src="js/app/main.js"></script>
+</body>
+</html>
