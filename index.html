@@ -13,7 +13,7 @@
   gtag('config', 'G-535822722');
 </script>
 
-<title>ClearImmi — Career Pathways for Immigrants</title>
+<title>ClearImmi — Career Pathways, Status &amp; Form Help, and Immigration Updates for Immigrants</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -38,24 +38,24 @@
       <p data-en="Made by someone who's navigated this himself — not a government office" data-ht="Fèt pa yon moun ki navige sa a li menm — se pa yon biwo gouvènman" data-fr="Créé par quelqu'un qui a vécu ce parcours lui-même — pas un bureau gouvernemental" data-es="Hecho por alguien que ha navegado esto él mismo — no una oficina gubernamental" data-pt="Feito por alguém que já passou por isso — não uma repartição pública">Made by someone who's navigated this himself — not a government office</p>
     </div>
 
-    <h1 data-en="Your career path in the US, step by step" data-ht="Chemen karyè ou Ozetazini, etap pa etap" data-fr="Votre parcours professionnel aux États-Unis, étape par étape">Your career path in the US, step by step</h1>
-    <p data-en="Built from official state licensing requirements — made for immigrants, in your language." data-ht="Bati sou egzijans ofisyèl lisans eta a — fèt pou imigran, nan lang ou." data-fr="Basé sur les exigences officielles de licence de l'État — conçu pour les immigrants, dans votre langue.">Built from official state licensing requirements — made for immigrants, in your language.</p>
+    <h1 data-en="Your path to work, status, and staying informed — in the US" data-ht="Chemen ou pou travay, estati, ak rete enfòme — Ozetazini" data-fr="Votre chemin vers le travail, le statut et l'information — aux États-Unis">Your path to work, status, and staying informed — in the US</h1>
+    <p data-en="Career licensing pathways, plain-language status &amp; form help, and dated immigration updates — built from official sources, made for immigrants, in your language." data-ht="Chemen lisans karyè, èd estati ak fòm nan lang senp, ak nouvèl imigrasyon dat — bati sou sous ofisyèl, fèt pou imigran, nan lang ou." data-fr="Parcours de licence professionnelle, aide au statut et aux formulaires en langage simple, et actualités d'immigration datées — basés sur des sources officielles, conçus pour les immigrants, dans votre langue.">Career licensing pathways, plain-language status &amp; form help, and dated immigration updates — built from official sources, made for immigrants, in your language.</p>
   </div>
 </header>
 
 <div class="desktop-shell">
   <nav class="desktop-sidebar">
     <div class="desktop-sidebar-brand">CLEARIMMI</div>
-    <button class="sidebar-link" onclick="goHome()">
+    <button class="sidebar-link" data-screen="screen-home" onclick="goHome()">
       <span class="sidebar-link-icon">🏠</span> Home
     </button>
-    <button class="sidebar-link" onclick="showScreen('screen-pathways-hub')">
+    <button class="sidebar-link" data-screen="screen-pathways-hub" onclick="showScreen('screen-pathways-hub')">
       <span class="sidebar-link-icon">🧭</span> Career &amp; Credential Pathways
     </button>
-    <button class="sidebar-link" onclick="showScreen('screen-glossary')">
+    <button class="sidebar-link" data-screen="screen-glossary" onclick="showScreen('screen-glossary')">
       <span class="sidebar-link-icon">📖</span> Status &amp; Form Filling Help
     </button>
-    <button class="sidebar-link" onclick="showScreen('screen-updates')">
+    <button class="sidebar-link" data-screen="screen-updates" onclick="showScreen('screen-updates')">
       <span class="sidebar-link-icon">📰</span> Immigration Updates
     </button>
     <a class="sidebar-link" href="blog/index.html">
@@ -80,11 +80,6 @@
 
     <div class="state-strip" id="stateStrip"></div>
     <div class="state-note" id="stateNote"></div>
-
-    <div class="roadmap-tile" id="roadmapTile">
-      <div class="roadmap-tile-title" id="roadmapTitle"></div>
-      <div id="roadmapItems"></div>
-    </div>
 
     <div class="section-title" data-en="What do you need today?" data-ht="Kisa ou bezwen jodi a?" data-fr="De quoi avez-vous besoin aujourd'hui ?">What do you need today?</div>
     <div class="section-sub" data-en="Tap a section to get started" data-ht="Chwazi yon seksyon pou kòmanse" data-fr="Choisissez une section pour commencer">Tap a section to get started</div>

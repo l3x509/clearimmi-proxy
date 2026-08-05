@@ -140,6 +140,14 @@ const roadmapUi = {
   upgradeTag: { en: "Upgrade path", ht: "Chemen monte", fr: "Parcours de progression", es: "Camino de avance", pt: "Caminho de avanço", zh: "晋升路径", ar: "مسار الترقية" }
 };
 
+// NOTE: the homepage "pick up where you left off" roadmap tile was
+// removed from index.html (Aug 2026) — this function is currently
+// unused (no #roadmapTile exists to render into, so it silently no-ops
+// if called). The underlying tracking (touchActivePathway/
+// getActivePathways) is still active and still needed by
+// resumePlan()/resumeUpgrade() inside the pathway screens themselves.
+// Left in place rather than deleted in case the tile comes back in a
+// different location later.
 function renderRoadmap() {
   const tile = document.getElementById('roadmapTile');
   if (!tile) return;

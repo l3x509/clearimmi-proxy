@@ -112,13 +112,47 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (id === 'screen-home') renderRoadmap();
   if (id === 'screen-quiz') restoreQuizAnswers();
   if (id === 'screen-glossary') renderGlossaryIndex();
   if (id === 'screen-updates') renderUpdatesFeed();
+  updateSidebarActive(id);
 }
 
 function goHome() { currentField = null; showScreen('screen-home'); }
+
+// Maps every screen ID to the sidebar link it should highlight — most
+// pathway sub-screens (nursing, quiz, upgrade results, etc.) all belong
+// under the single "Career & Credential Pathways" sidebar entry, not
+// their own. Add new screens here when they're created, or the sidebar
+// indicator will silently show nothing active for them.
+const sidebarSectionMap = {
+  'screen-home': 'screen-home',
+  'screen-pathways-hub': 'screen-pathways-hub',
+  'screen-fields': 'screen-pathways-hub',
+  'screen-nursing': 'screen-pathways-hub',
+  'screen-teaching': 'screen-pathways-hub',
+  'screen-cdl': 'screen-pathways-hub',
+  'screen-cosmetology': 'screen-pathways-hub',
+  'screen-accounting': 'screen-pathways-hub',
+  'screen-quiz': 'screen-pathways-hub',
+  'screen-quiz-results': 'screen-pathways-hub',
+  'screen-upgrade': 'screen-pathways-hub',
+  'screen-upgrade-results': 'screen-pathways-hub',
+  'screen-explain': 'screen-pathways-hub',
+  'screen-lettergen': 'screen-pathways-hub',
+  'screen-results': 'screen-pathways-hub',
+  'screen-glossary': 'screen-glossary',
+  'screen-glossary-entry': 'screen-glossary',
+  'screen-filing-help': 'screen-glossary',
+  'screen-updates': 'screen-updates'
+};
+
+function updateSidebarActive(screenId) {
+  const activeSection = sidebarSectionMap[screenId];
+  document.querySelectorAll('.sidebar-link[data-screen]').forEach(link => {
+    link.classList.toggle('active', link.dataset.screen === activeSection);
+  });
+}
 
 const fieldUi = {
   notInState: { en: "Not available in {state} yet — Massachusetts only for now.", ht: "Poko disponib nan {state} — Massachusetts sèlman pou kounye a.", fr: "Pas encore disponible en {state} — Massachusetts uniquement pour l'instant.", es: "Aún no disponible en {state} — solo Massachusetts por ahora.", pt: "Ainda não disponível na {state} — apenas Massachusetts por enquanto.", zh: "{state}尚不可用——目前仅限马萨诸塞州。", ar: "غير متاح في {state} بعد — ماساتشوستس فقط حالياً." },
@@ -199,7 +233,6 @@ function setLang(lang) {
     renderUpdatesFeed();
   }
   renderStateStrip();
-  renderRoadmap();
   renderStatsBar();
   renderUpdatesStrip();
   renderFieldAvailability();
