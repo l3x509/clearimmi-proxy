@@ -26,5 +26,6 @@
   renderStateStrip();
   renderRoadmap();
   renderStatsBar();
+  renderUpdatesStrip();
   renderFieldAvailability();
 })();

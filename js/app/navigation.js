@@ -201,5 +201,6 @@ function setLang(lang) {
   renderStateStrip();
   renderRoadmap();
   renderStatsBar();
+  renderUpdatesStrip();
   renderFieldAvailability();
 }

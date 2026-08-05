@@ -15,3 +15,22 @@ function renderUpdatesFeed() {
     </div>
   `).join('');
 }
+
+function renderUpdatesStrip() {
+  const el = document.getElementById('updatesStrip');
+  if (!el) return;
+  const lang = currentLang;
+  const latest = updatesData.slice(0, 2); // array is newest-first by convention
+  if (!latest.length) { el.innerHTML = ''; return; }
+
+  el.innerHTML = `
+    <div class="updates-strip-label">Latest updates</div>
+    ${latest.map(u => `
+      <button class="updates-strip-item" onclick="showScreen('screen-updates')">
+        <span class="updates-strip-date">${u.date[lang] || u.date.en}</span>
+        <span class="updates-strip-title">${u.title[lang] || u.title.en}</span>
+        <span class="updates-strip-arrow">›</span>
+      </button>
+    `).join('')}
+  `;
+}
