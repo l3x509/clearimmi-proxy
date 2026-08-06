@@ -124,8 +124,8 @@ follow).
 
 ## Analytics (GA4)
 
-GA4 property already exists (measurement ID `G-535822722`) and is wired
-into every page's `<head>` — `index.html` and all three `blog/*.html`
+GA4 property already exists (measurement ID `G-JJT7LTX09F`) and is wired
+into every page's `<head>` — `index.html` and all `blog/*.html`
 files. If you add a new HTML page, copy the GA snippet from the top of
 `index.html`'s `<head>` into it.
 
