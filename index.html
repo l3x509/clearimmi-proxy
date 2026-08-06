@@ -43,29 +43,9 @@
   </div>
 </header>
 
-<div class="desktop-shell">
-  <nav class="desktop-sidebar">
-    <div class="desktop-sidebar-brand">CLEARIMMI</div>
-    <button class="sidebar-link" data-screen="screen-home" onclick="goHome()">
-      <span class="sidebar-link-icon">🏠</span> Home
-    </button>
-    <button class="sidebar-link" data-screen="screen-pathways-hub" onclick="showScreen('screen-pathways-hub')">
-      <span class="sidebar-link-icon">🧭</span> Career &amp; Credential Pathways
-    </button>
-    <button class="sidebar-link" data-screen="screen-glossary" onclick="showScreen('screen-glossary')">
-      <span class="sidebar-link-icon">📖</span> Status &amp; Form Filling Help
-    </button>
-    <button class="sidebar-link" data-screen="screen-updates" onclick="showScreen('screen-updates')">
-      <span class="sidebar-link-icon">📰</span> Immigration Updates
-    </button>
-    <a class="sidebar-link" href="blog/index.html">
-      <span class="sidebar-link-icon">✍️</span> Blog
-    </a>
-  </nav>
+<div class="wrap" id="home-wrap">
 
-<div class="wrap">
-
-  <!-- HOME: intent-first -->
+  <!-- HOME: intent-first — standalone, no sidebar shell -->
   <div class="screen active" id="screen-home">
 
     <div class="trust-strip">
@@ -110,6 +90,31 @@
 
     <p style="text-align:center;margin-top:24px;font-size:12.5px;"><a href="blog/index.html" style="color:var(--muted);text-decoration:underline;">Read our guides →</a></p>
   </div>
+
+</div>
+
+<!-- Everything except Home renders inside the shell, with the sidebar -->
+<div class="desktop-shell" id="app-shell" style="display:none;">
+  <nav class="sidebar">
+    <div class="sidebar-brand">CLEARIMMI</div>
+    <button class="sidebar-link" data-screen="screen-home" onclick="goHome()">
+      <span class="sidebar-link-icon">🏠</span> Home
+    </button>
+    <button class="sidebar-link" data-screen="screen-pathways-hub" onclick="showScreen('screen-pathways-hub')">
+      <span class="sidebar-link-icon">🧭</span> Career &amp; Credential Pathways
+    </button>
+    <button class="sidebar-link" data-screen="screen-glossary" onclick="showScreen('screen-glossary')">
+      <span class="sidebar-link-icon">📖</span> Status &amp; Form Filling Help
+    </button>
+    <button class="sidebar-link" data-screen="screen-updates" onclick="showScreen('screen-updates')">
+      <span class="sidebar-link-icon">📰</span> Immigration Updates
+    </button>
+    <a class="sidebar-link" href="blog/index.html">
+      <span class="sidebar-link-icon">✍️</span> Blog
+    </a>
+  </nav>
+
+<div class="wrap">
 
   <!-- FIELD PICKER -->
   <div class="screen" id="screen-pathways-hub">

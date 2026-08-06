@@ -111,6 +111,20 @@ function mergeLang(target, extra) {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+
+  // Home renders standalone with no sidebar; every other screen lives
+  // inside #app-shell, which has it. Toggle which top-level container
+  // is visible based on where we're navigating to.
+  const homeWrap = document.getElementById('home-wrap');
+  const appShell = document.getElementById('app-shell');
+  if (id === 'screen-home') {
+    homeWrap.style.display = '';
+    appShell.style.display = 'none';
+  } else {
+    homeWrap.style.display = 'none';
+    appShell.style.display = '';
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (id === 'screen-quiz') restoreQuizAnswers();
   if (id === 'screen-glossary') renderGlossaryIndex();
