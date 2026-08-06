@@ -56,6 +56,29 @@ If you add a new script file, add its `<script src="...">` tag in
 `index.html` in the right position — data before app, `main.js` always
 last.
 
+## Cache-busting — bump this on every JS/CSS change
+
+Hostinger serves `css/style.css` and every `js/**/*.js` file with
+`cache-control: public, max-age=604800` (7 days), and there's no build
+step to fingerprint filenames. Without a cache-buster, a browser that
+visited the site anytime in the last week keeps running week-old JS/CSS
+against a freshly-deployed `index.html` — this actually happened (Aug
+2026: a structural sidebar change shipped, and devices with cached
+`navigation.js` rendered sections that activated internally but stayed
+visually blank, because the stale JS didn't know about the new
+show/hide containers). `index.html` itself isn't cached this
+aggressively, so it's specifically the JS/CSS asset requests that go
+stale.
+
+Every local `<script src="js/...">` and `<link ... href="css/style.css">`
+tag (in `index.html` and every `blog/*.html`) carries a `?v=YYYYMMDD`
+query string. **Whenever you change any file under `js/` or
+`css/style.css`, bump `?v=` to the current date on every tag that
+references it** (all script tags in `index.html`, and the stylesheet
+link in every `blog/*.html`) — a query-string change forces browsers to
+fetch a fresh copy regardless of the 7-day cache. If you forget, the
+fix only reaches visitors who happen to hard-refresh.
+
 ## ⚠ The bug this structure exists to prevent
 
 A real translation bug shipped once: switching languages updated visible
