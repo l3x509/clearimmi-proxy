@@ -1226,3 +1226,25 @@
     font-weight: 600;
   }
   .updates-strip-arrow { color: var(--gold); flex-shrink: 0; }
+
+  /* Blog tag filter (blog index page only) */
+  .blog-tag-filter {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 4px 0 26px;
+  }
+  .blog-tag-filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1.5px solid var(--line);
+    background: var(--card-bg);
+    color: var(--charcoal);
+    cursor: pointer;
+  }
+  .blog-tag-filter-btn:hover { border-color: var(--gold); }
+  .blog-tag-filter-btn.active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 700; }
+  .blog-list-item.filtered-out { display: none; }

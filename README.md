@@ -76,7 +76,10 @@ query string. **Whenever you change any file under `js/` or
 `css/style.css`, bump `?v=` to the current date on every tag that
 references it** (all script tags in `index.html`, and the stylesheet
 link in every `blog/*.html`) — a query-string change forces browsers to
-fetch a fresh copy regardless of the 7-day cache. If you forget, the
+fetch a fresh copy regardless of the 7-day cache. If you deploy more
+than once on the same calendar date, the date alone isn't a new
+string — append a letter suffix (`?v=20260806b`, then `c`, ...) so each
+deploy still gets a distinct URL. If you forget to bump it, the
 fix only reaches visitors who happen to hard-refresh.
 
 ## ⚠ The bug this structure exists to prevent
@@ -204,11 +207,49 @@ To add a new post:
 4. Link back into the app somewhere relevant (the `.blog-cta` box
    pattern) — the blog's job is to bring people to the actual product,
    not just to rank on its own.
-5. Add the post to `blog/index.html`'s listing.
+5. Add the post to `blog/index.html`'s listing, with a `data-topics`
+   attribute (see "Blog topic tags" below).
 6. Add its URL to `sitemap.xml`.
 7. Include a `.blog-disclaimer` block and cite sources in
    `.blog-sources`, same discipline as the glossary — especially for
    any post touching immigration status or legal topics.
+
+### Blog topic tags
+
+Posts are tagged by **topic only** (what the post is fundamentally
+about) — not by state or content-type. The known taxonomy so far:
+
+- `tps` — Temporary Protected Status
+- `career-licensing` — career/credential licensing guides (CNA, etc.)
+- `asylum`, `green-cards`, `work-permits`, `forms-filing` — not used by
+  any post yet, but anticipated given the app's own feature areas
+  (Status & Form Filling Help covers all of these) — reuse these exact
+  slugs when a post needing them is added, don't invent new spellings.
+
+A post can carry more than one topic (space-separated in
+`data-topics`, e.g. `data-topics="asylum green-cards"`) if it genuinely
+spans more than one.
+
+To tag a new post:
+1. On its `.blog-list-item` in `blog/index.html`, set
+   `data-topics="..."` to the relevant slug(s), and set the
+   `.blog-list-tag` span's text to the matching human-readable label
+   (e.g. `tps` → "TPS", `career-licensing` → "Career Licensing").
+2. On the post's own page, set the last `<span>` in `.blog-meta` to the
+   same human-readable label (append " — Breaking" there, not in the
+   filter tag, if the post is time-sensitive news — that's a display
+   nuance, not a filterable dimension).
+3. If the post introduces a genuinely new topic not in the list above,
+   add a new `<button class="blog-tag-filter-btn" data-filter="...">`
+   to the `.blog-tag-filter` bar in `blog/index.html`, and add the new
+   slug to the taxonomy list above so the next session doesn't
+   reinvent it under a different name.
+
+The filter bar (`#blogTagFilter` in `blog/index.html`) is small inline
+JS scoped to that one page only — it toggles a `.filtered-out` class
+(defined in `css/style.css`) on non-matching `.blog-list-item`s.
+Individual post pages stay fully static with no JS dependency, per the
+SEO rationale above.
 
 ## Content safety rules (apply everywhere, not just the glossary)
 
