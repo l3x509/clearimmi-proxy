@@ -221,10 +221,14 @@ about) — not by state or content-type. The known taxonomy so far:
 
 - `tps` — Temporary Protected Status
 - `career-licensing` — career/credential licensing guides (CNA, etc.)
-- `asylum`, `green-cards`, `work-permits`, `forms-filing` — not used by
-  any post yet, but anticipated given the app's own feature areas
-  (Status & Form Filling Help covers all of these) — reuse these exact
-  slugs when a post needing them is added, don't invent new spellings.
+- `forms-filing` — USCIS forms, fees, and filing mechanics
+- `green-cards` — green card issuance, renewal, and replacement
+- `asylum` — asylum and related humanitarian relief
+- `know-your-rights` — constitutional rights during enforcement encounters
+- `work-permits` — not used by any post yet, but anticipated given the
+  app's own feature areas (Status & Form Filling Help covers this) —
+  reuse this exact slug when a post needing it is added, don't invent
+  new spellings.
 
 A post can carry more than one topic (space-separated in
 `data-topics`, e.g. `data-topics="asylum green-cards"`) if it genuinely

@@ -1026,6 +1026,10 @@
   .blog-body li { margin-bottom: 8px; }
   .blog-body strong { color: var(--heading); }
   .blog-body a { color: #8FC4DB; text-decoration: underline; }
+  .blog-table-wrap { overflow-x: auto; margin: 0 0 18px; }
+  .blog-table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: 14px; }
+  .blog-table th, .blog-table td { border: 1px solid rgba(255,255,255,.12); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .blog-table th { background: rgba(255,255,255,.06); color: var(--heading); }
   .blog-cta {
     background: var(--gold-glow);
     border: 1.5px solid rgba(200,146,42,.35);
