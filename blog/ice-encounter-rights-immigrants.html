@@ -391,7 +391,7 @@
 (function(){
   function applyBlogLang(lang) {
     document.querySelectorAll('.blog-lang-toggle .lang-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.blang === lang); });
-    document.querySelectorAll('[data-blang]').forEach(function(el){ el.hidden = el.getAttribute('data-blang') !== lang; });
+    document.querySelectorAll('[data-blang]').forEach(function(el){ if (el.closest('.blog-lang-toggle')) return; el.hidden = el.getAttribute('data-blang') !== lang; });
   }
   window.setBlogLang = function(lang) {
     applyBlogLang(lang);
