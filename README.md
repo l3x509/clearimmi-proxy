@@ -225,6 +225,9 @@ about) — not by state or content-type. The known taxonomy so far:
 - `green-cards` — green card issuance, renewal, and replacement
 - `asylum` — asylum and related humanitarian relief
 - `know-your-rights` — constitutional rights during enforcement encounters
+- `enforcement` — how enforcement programs/mechanisms themselves work (e.g.
+  ATD/ankle monitors) — distinct from `know-your-rights`, which covers what
+  to do in an encounter
 - `work-permits` — not used by any post yet, but anticipated given the
   app's own feature areas (Status & Form Filling Help covers this) —
   reuse this exact slug when a post needing it is added, don't invent
