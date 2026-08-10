@@ -190,10 +190,14 @@ deliberately built differently:
   static HTML per post. Built to rank in search and bring new people in.
 
 Each blog post is a standalone `.html` file (not JS-rendered) so search
-engines can read it without executing anything — this is the entire
-point, and it's why blog posts don't use the SPA's language-switching
-system. They reuse `css/style.css` (the `.blog-*` classes near the
-bottom of that file) so they look consistent with the rest of the site.
+engines can read it without executing anything. They reuse `css/style.css`
+(the `.blog-*` classes near the bottom of that file) so they look
+consistent with the rest of the site.
+
+Posts do carry their own bilingual toggle (EN / Kreyòl / Español) — see
+"Blog post translations" below — but it's a small, self-contained inline
+script per post, not the SPA's `data-en`/`setLang()` system, since
+English-language SEO content still needs to be crawlable without JS.
 
 To add a new post:
 1. Copy an existing post in `blog/` as a template.
@@ -213,6 +217,37 @@ To add a new post:
 7. Include a `.blog-disclaimer` block and cite sources in
    `.blog-sources`, same discipline as the glossary — especially for
    any post touching immigration status or legal topics.
+8. Add the bilingual toggle (see "Blog post translations" below) —
+   every post should ship in EN/HT/ES from day one now, not as a
+   follow-up.
+
+### Blog post translations
+
+Every post ships with an EN / Kreyòl / Español toggle
+(`ice-ankle-monitors-atd-explained.html` is the reference
+implementation). The pattern, copied verbatim into each post:
+
+1. A `.blog-lang-toggle` button bar right after the breadcrumb:
+   `<button class="lang-btn" data-blang="en" onclick="setBlogLang('en')">EN</button>`
+   (and `ht`/`es` siblings, labeled `Kreyòl` / `Español`).
+2. Three parallel `data-blang="en"` / `data-blang="ht" hidden` /
+   `data-blang="es" hidden"` sibling blocks wrapping: the meta line +
+   `<h1>` + dek together, the entire `.blog-body`, and the closing
+   `.blog-disclaimer`. `.blog-sources` is left untranslated and shown
+   once — bibliographic citations stay in their original language.
+3. A small inline script before `</body>` (copy it as-is) that shows
+   only the matching `[data-blang]` elements and reads/writes the same
+   `lang` key in `localStorage` that the main SPA's `setLang()` uses
+   (`js/app/navigation.js`) — so a language picked on the blog carries
+   over to the app, and vice versa, without sharing any other code.
+
+Translation rules, non-negotiable: case names, docket numbers,
+statute/form citations, dollar figures, dates, and organization names
+must be byte-identical across all three language blocks — only
+surrounding prose gets translated. Verify tag balance (div/table/ul/
+li/h2 open counts equal close counts) and that each `data-blang` value
+appears exactly 4 times (1 toggle button + 3 content wrappers) before
+shipping.
 
 ### Blog topic tags
 

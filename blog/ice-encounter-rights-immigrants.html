@@ -40,7 +40,7 @@
   "keywords": "ICE, rights, know your rights, immigration enforcement, warrant, deportation, detention"
 }
 </script>
-<link rel="stylesheet" href="../css/style.css?v=20260808">
+<link rel="stylesheet" href="../css/style.css?v=20260809b">
 <style>
   body { background: var(--navy); }
   header .lang-toggle { display: none; }
@@ -84,18 +84,47 @@
 
   <div class="blog-breadcrumb"><a href="../index.html">Home</a> · <a href="index.html">Blog</a> · Know Your Rights: ICE Encounters</div>
 
-  <div class="blog-meta">
-    <span>Published August 8, 2026</span>
-    <span>·</span>
-    <span>7 min read</span>
-    <span>·</span>
-    <span>Safety &amp; Rights</span>
+  <div class="blog-lang-toggle">
+    <button class="lang-btn" data-blang="en" onclick="setBlogLang('en')">EN</button>
+    <button class="lang-btn" data-blang="ht" onclick="setBlogLang('ht')">Kreyòl</button>
+    <button class="lang-btn" data-blang="es" onclick="setBlogLang('es')">Español</button>
   </div>
 
-  <h1 class="blog-h1">Know Your Rights: What to Do If You're Stopped by ICE</h1>
-  <p class="blog-dek">This page explains your general constitutional rights during immigration enforcement encounters. It is general information, not legal advice for your specific situation.</p>
+  <div data-blang="en">
+    <div class="blog-meta">
+      <span>Published August 8, 2026</span>
+      <span>·</span>
+      <span>7 min read</span>
+      <span>·</span>
+      <span>Safety &amp; Rights</span>
+    </div>
+    <h1 class="blog-h1">Know Your Rights: What to Do If You're Stopped by ICE</h1>
+    <p class="blog-dek">This page explains your general constitutional rights during immigration enforcement encounters. It is general information, not legal advice for your specific situation.</p>
+  </div>
+  <div data-blang="ht" hidden>
+    <div class="blog-meta">
+      <span>Pibliye 8 out 2026</span>
+      <span>·</span>
+      <span>7 minit pou li</span>
+      <span>·</span>
+      <span>Sekirite ak Dwa</span>
+    </div>
+    <h1 class="blog-h1">Konnen Dwa Ou: Sa Pou Fè Si ICE Rete Ou</h1>
+    <p class="blog-dek">Paj sa a eksplike dwa konstitisyonèl jeneral ou pandan rankont aplikasyon lalwa imigrasyon. Se enfòmasyon jeneral, se pa konsèy legal pou sitiyasyon spesifik ou.</p>
+  </div>
+  <div data-blang="es" hidden>
+    <div class="blog-meta">
+      <span>Publicado el 8 de agosto de 2026</span>
+      <span>·</span>
+      <span>7 min de lectura</span>
+      <span>·</span>
+      <span>Seguridad y Derechos</span>
+    </div>
+    <h1 class="blog-h1">Conozca Sus Derechos: Qué Hacer Si ICE Lo Detiene</h1>
+    <p class="blog-dek">Esta página explica sus derechos constitucionales generales durante encuentros de aplicación de la ley de inmigración. Es información general, no asesoría legal para su situación específica.</p>
+  </div>
 
-  <div class="blog-body">
+  <div class="blog-body" data-blang="en">
 
     <div class="blog-disclaimer">
       This is general information, not legal advice for your specific situation. Laws vary by state, and situations vary. For advice about your case, consult an accredited representative or immigration attorney.
@@ -176,9 +205,177 @@
     <a href="https://www.aclu.org/immigrants-rights" target="_blank" rel="noopener"><strong>ACLU immigrants' rights resources →</strong></a></p>
 
   </div>
+  <div class="blog-body" data-blang="ht" hidden>
 
-  <div class="blog-disclaimer">
+    <div class="blog-disclaimer">
+      Sa se enfòmasyon jeneral, se pa konsèy legal pou sitiyasyon spesifik ou. Lwa yo varye selon eta, epi sitiyasyon yo varye. Pou konsèy sou ka ou, konsilte yon reprezantan akredite oswa yon avoka imigrasyon.
+    </div>
+
+    <p>Dwa sa yo egziste kèlkeswa estati imigrasyon ou. Yo aplike pou ou kit ou gen TPS, azil, yon vwaza, oswa pa gen okenn papye ditou. Yo baze sou Konstitisyon Etazini — Katriyèm ak Senkyèm Amannman yo — epi yo pa disparèt paske se yon ofisye k ap mande.</p>
+
+    <h2>Bagay ki pi enpòtan pou konnen yo</h2>
+    <ol>
+      <li><strong>Ou gen dwa pou rete an silans.</strong> Ou pa oblije di ICE estati imigrasyon ou, kote w te fèt, oswa kijan ou te antre Ozetazini. Nenpòt sa ou di ka itilize kont ou nan pwosedi imigrasyon.</li>
+      <li><strong>Ou pa oblije konsanti a yon rechèch</strong> nan kò ou, machin ou, kay ou, oswa telefòn ou. Di klèman: "Mwen pa konsanti a yon rechèch."</li>
+      <li><strong>Yon manda administratif se pa menm bagay ak yon manda jidisyè.</strong> ICE tipikman pote manda administratif (Fòm I-200 oswa I-205). Sa yo <strong>pa</strong> otorize antre nan kay ou. Se sèlman yon manda jidisyè — siyen pa yon jij, ak non ak adrès ou sou li — ki otorize ofisye antre.</li>
+      <li><strong>Pa bay manti epi pa montre fo dokiman.</strong> Bay ajan federal manti oswa montre fo dokiman se krim separe ki fè sitiyasyon ou vin pi mal.</li>
+      <li><strong>Rete kalm.</strong> Pa kouri, pa reziste, ni pa bloke fizikman ofisye yo, menm si ou kwè yo ap vyole dwa ou. Kenbe men ou vizib.</li>
+    </ol>
+
+    <h2>Si ICE rete ou nan yon kote piblik</h2>
+    <ul>
+      <li>Mande: <strong>"Èske m lib pou m ale?"</strong> Si yo di wi, mache ale trankilman. Si yo di non, w ap detni.</li>
+      <li>Mande ofisye yo <strong>idantifye tèt yo</strong> epi montre badj yo.</li>
+      <li><strong>Di klèman:</strong> "Mwen ap egzèse dwa m pou m rete an silans."</li>
+      <li>Pa reponn kesyon sou kote w te fèt, kijan ou te antre, oswa estati imigrasyon ou.</li>
+      <li><em>Nòt: Nan kèk eta, lalwa ka egzije ou bay non ou si yon ofisye mande yon idantifikasyon. Verifye lwa eta ou.</em></li>
+    </ul>
+
+    <h2>Si ICE vin lakay ou</h2>
+    <ul>
+      <li><strong>Ou pa oblije louvri pòt la.</strong> Ou ka pale nan pòt la.</li>
+      <li>Mande: <strong>"Èske w gen yon manda jidisyè?"</strong> Mande yo pase l anba pòt la oswa kenbe l devan yon fenèt pou ou ka li li.</li>
+      <li>Yon <strong>manda administratif</strong> (Fòm I-200 oswa I-205) <strong>pa</strong> otorize antre nan kay ou. Ou ka refize louvri pòt la.</li>
+      <li>Yon <strong>manda jidisyè</strong> — siyen pa yon jij, ki gen adrès ou sou li — otorize antre. Si yo genyen youn epi yo antre pa fòs, di klèman ou pa konsanti, men pa reziste fizikman.</li>
+      <li>Si yo antre san konsantman ou epi san yon manda jidisyè valab, pa goumen. Rete kalm, di ou pa konsanti, epi ekri tout sa ou sonje apre.</li>
+    </ul>
+
+    <h2>Si yo detni ou</h2>
+    <ul>
+      <li><strong>Di:</strong> "Mwen vle pale ak yon avoka." Mande yon avoka imedyatman epi pa reponn kesyon jiskaske ou genyen youn.</li>
+      <li><strong>Ou gen dwa kontakte konsila ou.</strong> ICE oblije enfòme ou de dwa sa a. Di yo nasyonalite ou epi mande pou kontakte konsila peyi ou. Konsila a ka ede ak referans legal ak notifikasyon fanmi.</li>
+      <li><strong>Bay nimewo A ou (nimewo imigrasyon ou)</strong> a yon manm fanmi anvan nenpòt bagay rive — se konsa yo ka jwenn ou si yo detni ou. Nimewo A a se yon nimewo 9 chif ki sou EAD ou, kat vèt ou, oswa ansyen papye imigrasyon ou.</li>
+      <li><strong>Ou gen dwa fè yon apèl telefòn</strong> yon fwa ou nan gadyanaj. Apèl bay avoka yo prive; lòt apèl yo ka anrejistre.</li>
+      <li>Gouvènman an <strong>pa bay yon avoka gratis</strong> pou ka imigrasyon (kontrèman ak ka kriminèl). Si ou pa ka peye youn, mande sou èd legal gratis. ICE dwe ba ou yon lis sèvis legal gratis.</li>
+    </ul>
+
+    <h2>Dokiman ou dwe genyen selon estati ou</h2>
+    <div class="blog-table-wrap">
+    <table class="blog-table">
+      <thead><tr><th>Si ou se...</th><th>Sa ou dwe montre si ICE mande</th></tr></thead>
+      <tbody>
+        <tr><td>Sitwayen Ameriken</td><td>Pa gen okenn egzijans pou pote prèv sitwayènte; montre l ka ede rezoud rankont lan pi vit</td></tr>
+        <tr><td>Moun ki gen kat vèt</td><td>Lwa federal egzije ou pote kat vèt ou epi prezante l si yo mande</td></tr>
+        <tr><td>Moun ki gen TPS, vwaza, EAD</td><td>Dwe montre dokiman imigrasyon si yo mande epi ou genyen yo sou ou</td></tr>
+        <tr><td>Pa gen dokiman</td><td>Dwa pou rete an silans aplike; ou pa oblije reponn kesyon sou estati ou</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Prepare kounye a, anvan nenpòt bagay rive</h2>
+    <ul>
+      <li><strong>Memorize nimewo A ou.</strong> Ekri l epi bay yon kopi a yon manm fanmi ou fè konfyans.</li>
+      <li><strong>Deziyen yon kontak dijans</strong> epi asire yo gen nimewo avoka ou.</li>
+      <li><strong>Fè yon plan gadri timoun alekri</strong> — siyen yon dokiman ki bay yon adilt ou fè konfyans otorite pou pran swen timoun ou si yo detni ou.</li>
+      <li><strong>Prepare yon pwokirasyon</strong> pou yon moun jere bagay finansye oswa legal.</li>
+      <li><strong>Kenbe kopi dokiman imigrasyon ou yo</strong> yon kote sekirize yon lòt moun ka jwenn yo.</li>
+      <li>ACLU ofri kat "konnen dwa ou" gratis ki ka enprime nan plizyè lang sou aclu.org.</li>
+    </ul>
+
+    <h2>Sa pou fè apre yon rankont</h2>
+    <ul>
+      <li>Ekri tout sa ou sonje pi vit posib — non ofisye oswa nimewo badj, sa ki te di, sa ki te pase, ki moun ki te la, ak lè ak kote.</li>
+      <li>Si ou kwè yo te vyole dwa ou, ou ka rapòte sa bay ACLU nan aclu.org/contact/report-violations.</li>
+      <li>Kontakte yon avoka imigrasyon oswa yon reprezantan akredite pi vit posib, espesyalman si yon moun te detni oswa dokiman te pran.</li>
+    </ul>
+
+    <h2>Yon nòt sou paj sa a</h2>
+    <p>Paj sa a soti dirèkteman nan gid "konnen dwa ou" ACLU yo (aclu.org/immigrants-rights) epi li entansyonèlman konsèvatif — li di ou sa ki klèman etabli, se pa sa yon moun sou rezo sosyal reklame. Dwa pandan rankont aplikasyon lalwa yo reyèl, men yo fonksyone pi byen lè ou konnen yo davans, rete kalm, epi jwenn èd legal rapid apre.</p>
+
+    <p><a href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener"><strong>Jwenn èd imigrasyon gratis oswa a ba pri →</strong></a><br>
+    <a href="https://www.aclu.org/immigrants-rights" target="_blank" rel="noopener"><strong>Resous dwa imigran ACLU →</strong></a></p>
+
+  </div>
+  <div class="blog-body" data-blang="es" hidden>
+
+    <div class="blog-disclaimer">
+      Esto es información general, no asesoría legal para su situación específica. Las leyes varían según el estado, y las situaciones varían. Para asesoría sobre su caso, consulte a un representante acreditado o abogado de inmigración.
+    </div>
+
+    <p>Estos derechos existen sin importar su estatus migratorio. Se aplican a usted ya sea que tenga TPS, asilo, una visa, o ningún papel en absoluto. Están fundamentados en la Constitución de EE. UU. — la Cuarta y la Quinta Enmienda — y no desaparecen por quién los esté preguntando.</p>
+
+    <h2>Lo más importante que debe saber</h2>
+    <ol>
+      <li><strong>Tiene derecho a guardar silencio.</strong> No tiene que decirle a ICE su estatus migratorio, dónde nació, o cómo entró a EE. UU. Cualquier cosa que diga puede usarse en su contra en los procesos de inmigración.</li>
+      <li><strong>No tiene que consentir a un registro</strong> de su cuerpo, auto, casa o teléfono. Diga claramente: "No consiento a un registro."</li>
+      <li><strong>Una orden administrativa no es lo mismo que una orden judicial.</strong> ICE típicamente lleva órdenes administrativas (Formulario I-200 o I-205). Estas <strong>no</strong> autorizan la entrada a su casa. Solo una orden judicial — firmada por un juez, con su nombre y dirección — autoriza a los oficiales a entrar.</li>
+      <li><strong>No mienta y no muestre documentos falsos.</strong> Mentirle a agentes federales o presentar documentos falsos son delitos separados que empeoran su situación.</li>
+      <li><strong>Manténgase tranquilo.</strong> No corra, no resista, ni obstruya físicamente a los oficiales, incluso si cree que están violando sus derechos. Mantenga las manos visibles.</li>
+    </ol>
+
+    <h2>Si ICE lo detiene en un lugar público</h2>
+    <ul>
+      <li>Pregunte: <strong>"¿Soy libre de irme?"</strong> Si dicen que sí, aléjese con calma. Si dicen que no, está siendo detenido.</li>
+      <li>Pida a los oficiales que <strong>se identifiquen</strong> y muestren sus placas.</li>
+      <li><strong>Diga claramente:</strong> "Estoy ejerciendo mi derecho a guardar silencio."</li>
+      <li>No responda preguntas sobre dónde nació, cómo entró, o su estatus migratorio.</li>
+      <li><em>Nota: En algunos estados, es posible que esté legalmente obligado a proporcionar su nombre si un oficial pide identificación. Verifique la ley de su estado.</em></li>
+    </ul>
+
+    <h2>Si ICE llega a su casa</h2>
+    <ul>
+      <li><strong>No tiene que abrir la puerta.</strong> Puede hablar a través de la puerta.</li>
+      <li>Pregunte: <strong>"¿Tiene una orden judicial?"</strong> Pídales que la deslicen por debajo de la puerta o la sostengan frente a una ventana para que pueda leerla.</li>
+      <li>Una <strong>orden administrativa</strong> (Formularios I-200 o I-205) <strong>no</strong> autoriza la entrada a su casa. Puede negarse a abrir la puerta.</li>
+      <li>Una <strong>orden judicial</strong> — firmada por un juez, con su dirección — sí autoriza la entrada. Si tienen una y fuerzan la entrada, diga claramente que no consiente, pero no resista físicamente.</li>
+      <li>Si entran sin su consentimiento y sin una orden judicial válida, no pelee. Manténgase tranquilo, diga que no consiente, y documente todo lo que recuerde después.</li>
+    </ul>
+
+    <h2>Si lo detienen</h2>
+    <ul>
+      <li><strong>Diga:</strong> "Quiero hablar con un abogado." Pida un abogado de inmediato y no responda preguntas hasta tener uno.</li>
+      <li><strong>Tiene derecho a contactar a su consulado.</strong> ICE está obligado a notificarle este derecho. Dígales su nacionalidad y pida contactar al consulado de su país. El consulado puede ayudar con referencias legales y notificación familiar.</li>
+      <li><strong>Dé su número A (su número de inmigración)</strong> a un familiar antes de que pase algo — así es como pueden localizarlo si lo detienen. El número A es un número de 9 dígitos en su EAD, tarjeta de residencia, o documentos de inmigración anteriores.</li>
+      <li><strong>Tiene derecho a hacer una llamada telefónica</strong> una vez bajo custodia. Las llamadas a abogados son privadas; otras llamadas pueden ser grabadas.</li>
+      <li>El gobierno <strong>no proporciona un abogado gratuito</strong> para casos de inmigración (a diferencia de los casos penales). Si no puede pagar uno, pregunte sobre ayuda legal gratuita. ICE debe darle una lista de servicios legales gratuitos.</li>
+    </ul>
+
+    <h2>Documentos requeridos según su estatus</h2>
+    <div class="blog-table-wrap">
+    <table class="blog-table">
+      <thead><tr><th>Si usted es...</th><th>Qué debe mostrar si ICE lo pide</th></tr></thead>
+      <tbody>
+        <tr><td>Ciudadano de EE. UU.</td><td>No hay obligación de portar prueba de ciudadanía; mostrarla puede ayudar a resolver el encuentro más rápido</td></tr>
+        <tr><td>Titular de tarjeta de residencia</td><td>La ley federal requiere que porte su tarjeta de residencia y la presente si se la piden</td></tr>
+        <tr><td>Titular de TPS, visa, EAD</td><td>Debe mostrar documentos de inmigración si se los piden y los tiene con usted</td></tr>
+        <tr><td>Sin documentos</td><td>El derecho a guardar silencio aplica; no está obligado a responder preguntas sobre su estatus</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Prepárese ahora, antes de que pase algo</h2>
+    <ul>
+      <li><strong>Memorice su número A.</strong> Anótelo y déle una copia a un familiar de confianza.</li>
+      <li><strong>Designe un contacto de emergencia</strong> y asegúrese de que tenga el número de su abogado.</li>
+      <li><strong>Haga un plan de cuidado infantil por escrito</strong> — firme un documento que otorgue a un adulto de confianza la autoridad para cuidar a sus hijos si lo detienen.</li>
+      <li><strong>Prepare un poder notarial</strong> para que alguien maneje asuntos financieros o legales.</li>
+      <li><strong>Guarde copias de sus documentos de inmigración</strong> en un lugar seguro al que otra persona pueda acceder.</li>
+      <li>La ACLU ofrece tarjetas gratuitas e imprimibles de "conozca sus derechos" en varios idiomas en aclu.org.</li>
+    </ul>
+
+    <h2>Qué hacer después de un encuentro</h2>
+    <ul>
+      <li>Escriba todo lo que recuerde lo antes posible — nombres de oficiales o números de placa, qué se dijo, qué pasó, quién estaba presente, y la hora y el lugar.</li>
+      <li>Si cree que sus derechos fueron violados, puede reportarlo a la ACLU en aclu.org/contact/report-violations.</li>
+      <li>Contacte a un abogado de inmigración o representante acreditado lo antes posible, especialmente si alguien fue detenido o le quitaron documentos.</li>
+    </ul>
+
+    <h2>Una nota sobre esta página</h2>
+    <p>Esta página se basa directamente en las guías de "conozca sus derechos" de la ACLU (aclu.org/immigrants-rights) y es intencionalmente conservadora — le dice lo que está claramente establecido, no lo que alguien en redes sociales afirme. Los derechos durante los encuentros de aplicación de la ley son reales, pero funcionan mejor cuando los conoce de antemano, se mantiene tranquilo, y obtiene ayuda legal rápidamente después.</p>
+
+    <p><a href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener"><strong>Encuentre ayuda migratoria gratuita o de bajo costo →</strong></a><br>
+    <a href="https://www.aclu.org/immigrants-rights" target="_blank" rel="noopener"><strong>Recursos de derechos de inmigrantes de la ACLU →</strong></a></p>
+
+  </div>
+
+  <div class="blog-disclaimer" data-blang="en">
     This article is general information, not legal advice. Laws and enforcement practices vary by state and can change quickly. The facts here were accurate as of publication (August 8, 2026); always consult a licensed attorney or DOJ-accredited representative for guidance specific to your situation.
+  </div>
+  <div class="blog-disclaimer" data-blang="ht" hidden>
+    Atik sa a se enfòmasyon jeneral, se pa konsèy legal. Lwa ak pratik aplikasyon lalwa varye selon eta epi yo ka chanje rapid. Fè yo te egzat nan moman piblikasyon (8 out 2026); toujou konsilte yon avoka lisansye oswa yon reprezantan akredite pa DOJ pou konsèy espesifik a sitiyasyon ou.
+  </div>
+  <div class="blog-disclaimer" data-blang="es" hidden>
+    Este artículo es información general, no asesoría legal. Las leyes y prácticas de aplicación de la ley varían según el estado y pueden cambiar rápidamente. Los hechos aquí eran precisos al momento de la publicación (8 de agosto de 2026); siempre consulte a un abogado con licencia o a un representante acreditado por el DOJ para obtener orientación específica a su situación.
   </div>
 
   <div class="blog-sources">
@@ -189,6 +386,23 @@
 
 
 </div>
+
+<script>
+(function(){
+  function applyBlogLang(lang) {
+    document.querySelectorAll('.blog-lang-toggle .lang-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.blang === lang); });
+    document.querySelectorAll('[data-blang]').forEach(function(el){ el.hidden = el.getAttribute('data-blang') !== lang; });
+  }
+  window.setBlogLang = function(lang) {
+    applyBlogLang(lang);
+    try { localStorage.setItem('lang', JSON.stringify(lang)); } catch(e) {}
+  };
+  var saved = 'en';
+  try { var v = localStorage.getItem('lang'); if (v) saved = JSON.parse(v); } catch(e) {}
+  if (saved !== 'ht' && saved !== 'es') saved = 'en';
+  applyBlogLang(saved);
+})();
+</script>
 
 </body>
 </html>

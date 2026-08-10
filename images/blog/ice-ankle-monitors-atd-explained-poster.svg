@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07101E"/>
+      <stop offset="100%" stop-color="#0D1B32"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- gold corner accent -->
+  <rect x="0" y="0" width="1200" height="8" fill="#C8922A"/>
+  <circle cx="1080" cy="150" r="220" fill="#C8922A" opacity="0.06"/>
+  <circle cx="1080" cy="150" r="140" fill="#C8922A" opacity="0.07"/>
+
+  <!-- wordmark -->
+  <text x="80" y="100" font-family="'DM Sans', Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="2" fill="#C8922A">CLEARIMMI</text>
+
+  <!-- eyebrow / category -->
+  <text x="80" y="190" font-family="'JetBrains Mono', 'Courier New', monospace" font-size="20" font-weight="600" letter-spacing="3" fill="#C8922A">STATUS &amp; ENFORCEMENT</text>
+
+  <!-- title -->
+  <text x="78" y="270" font-family="'DM Sans', Arial, sans-serif" font-size="58" font-weight="700" fill="#F6F2EA">ICE Ankle Monitors,</text>
+  <text x="78" y="340" font-family="'DM Sans', Arial, sans-serif" font-size="58" font-weight="700" fill="#F6F2EA">Explained</text>
+
+  <!-- subtitle -->
+  <text x="80" y="400" font-family="'DM Sans', Arial, sans-serif" font-size="26" fill="#B9C2D0">History, purpose, and how the program works in 2026</text>
+
+  <!-- divider -->
+  <rect x="80" y="440" width="64" height="4" rx="2" fill="#C8922A"/>
+
+  <!-- footer line -->
+  <text x="80" y="560" font-family="'DM Sans', Arial, sans-serif" font-size="20" fill="#8A93A3">clearimmi.com/blog</text>
+  <text x="80" y="590" font-family="'DM Sans', Arial, sans-serif" font-size="17" fill="#6B7280">Made by someone who's navigated this himself — not a government office</text>
+</svg>

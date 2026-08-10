@@ -40,7 +40,7 @@
   "keywords": "USCIS fees, I-485, I-130, N-400, I-765, I-90, I-751, H.R. 1 fees, fee waiver, I-912"
 }
 </script>
-<link rel="stylesheet" href="../css/style.css?v=20260808">
+<link rel="stylesheet" href="../css/style.css?v=20260809b">
 <style>
   body { background: var(--navy); }
   header .lang-toggle { display: none; }
@@ -84,18 +84,47 @@
 
   <div class="blog-breadcrumb"><a href="../index.html">Home</a> · <a href="index.html">Blog</a> · USCIS Fees 2026</div>
 
-  <div class="blog-meta">
-    <span>Published August 8, 2026</span>
-    <span>·</span>
-    <span>7 min read</span>
-    <span>·</span>
-    <span>Forms &amp; Filing</span>
+  <div class="blog-lang-toggle">
+    <button class="lang-btn" data-blang="en" onclick="setBlogLang('en')">EN</button>
+    <button class="lang-btn" data-blang="ht" onclick="setBlogLang('ht')">Kreyòl</button>
+    <button class="lang-btn" data-blang="es" onclick="setBlogLang('es')">Español</button>
   </div>
 
-  <h1 class="blog-h1">USCIS Fees in 2026, Explained in Plain Language</h1>
-  <p class="blog-dek">Immigration filing fees in 2026 are higher than they've ever been, and there are new fees from H.R. 1 that most people don't know about yet. Here's what things actually cost.</p>
+  <div data-blang="en">
+    <div class="blog-meta">
+      <span>Published August 8, 2026</span>
+      <span>·</span>
+      <span>7 min read</span>
+      <span>·</span>
+      <span>Forms &amp; Filing</span>
+    </div>
+    <h1 class="blog-h1">USCIS Fees in 2026, Explained in Plain Language</h1>
+    <p class="blog-dek">Immigration filing fees in 2026 are higher than they've ever been, and there are new fees from H.R. 1 that most people don't know about yet. Here's what things actually cost.</p>
+  </div>
+  <div data-blang="ht" hidden>
+    <div class="blog-meta">
+      <span>Pibliye 8 out 2026</span>
+      <span>·</span>
+      <span>7 minit pou li</span>
+      <span>·</span>
+      <span>Fòm ak Depo</span>
+    </div>
+    <h1 class="blog-h1">Frè USCIS an 2026, Eksplike nan Lang Senp</h1>
+    <p class="blog-dek">Frè depo imigrasyon an 2026 pi wo pase yo te janm ye, epi gen nouvo frè ki soti nan H.R. 1 ke pifò moun poko konnen. Men konbyen bagay yo koute vre.</p>
+  </div>
+  <div data-blang="es" hidden>
+    <div class="blog-meta">
+      <span>Publicado el 8 de agosto de 2026</span>
+      <span>·</span>
+      <span>7 min de lectura</span>
+      <span>·</span>
+      <span>Formularios y Trámites</span>
+    </div>
+    <h1 class="blog-h1">Las Tarifas de USCIS en 2026, Explicadas en Lenguaje Sencillo</h1>
+    <p class="blog-dek">Las tarifas de solicitud de inmigración en 2026 son más altas que nunca, y hay nuevas tarifas de la H.R. 1 que la mayoría de las personas aún no conoce. Esta guía explica lo que realmente cuestan las cosas.</p>
+  </div>
 
-  <div class="blog-body">
+  <div class="blog-body" data-blang="en">
 
     <div class="blog-disclaimer">
       Always verify fees against the official USCIS fee schedule (Form G-1055 at uscis.gov/g-1055) before you pay. Fees can change, and paying the wrong amount — even by $1 — causes your application to be rejected. This article reflects the fee schedule as of the May 29, 2026 edition of Form G-1055 and the One Big Beautiful Bill Act (H.R. 1) signed July 4, 2025, verified as of August 8, 2026.
@@ -207,9 +236,239 @@
     <p><a href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener"><strong>Find free or low-cost accredited immigration help →</strong></a></p>
 
   </div>
+  <div class="blog-body" data-blang="ht" hidden>
 
-  <div class="blog-disclaimer">
+    <div class="blog-disclaimer">
+      Toujou verifye frè yo kont orè frè ofisyèl USCIS la (Fòm G-1055 sou uscis.gov/g-1055) anvan ou peye. Frè yo ka chanje, epi peye move kantite lajan — menm pou $1 — fè yo rejte aplikasyon w. Atik sa a reflete orè frè a jan li ye nan edisyon 29 me 2026 Fòm G-1055 ak One Big Beautiful Bill Act (H.R. 1) siyen 4 jiyè 2025, verifye jiska 8 out 2026.
+    </div>
+
+    <h2>Frè ki pi komen yo yon kout je</h2>
+    <div class="blog-table-wrap">
+    <table class="blog-table">
+      <thead><tr><th>Fòm</th><th>Pou ki sa li ye</th><th>Frè papye</th><th>Frè an liy</th></tr></thead>
+      <tbody>
+        <tr><td><strong>I-130</strong></td><td>Petisyon Pou Fanmi Etranje</td><td>$675</td><td>$625</td></tr>
+        <tr><td><strong>I-485</strong></td><td>Ajiste estati / kat vèt (laj 14–78)</td><td>$1,440</td><td>Pa disponib pou pifò moun k ap depoze*</td></tr>
+        <tr><td><strong>I-485</strong></td><td>Ajiste estati (timoun anba 14 an ki depoze ak paran)</td><td>$950</td><td>N/A</td></tr>
+        <tr><td><strong>I-765</strong></td><td>Pèmi travay (EAD) — poukont li</td><td>$520</td><td>$470</td></tr>
+        <tr><td><strong>I-765</strong></td><td>Pèmi travay — depoze ak I-485 k ap tann</td><td>$260</td><td>$260</td></tr>
+        <tr><td><strong>I-131</strong></td><td>Dokiman vwayaj davans — poukont li</td><td>$630</td><td>N/A</td></tr>
+        <tr><td><strong>I-131</strong></td><td>Vwayaj davans — depoze ak I-485 k ap tann</td><td colspan="2">Enkli san chaj siplemantè, kòm pati nan frè I-485 la</td></tr>
+        <tr><td><strong>I-751</strong></td><td>Retire kondisyon sou kat vèt (kat 2-an)</td><td>$750</td><td>$700</td></tr>
+        <tr><td><strong>I-90</strong></td><td>Renouvle oswa ranplase kat vèt</td><td>$465</td><td>$415</td></tr>
+        <tr><td><strong>N-400</strong></td><td>Naturalizasyon / sitwayènte</td><td>$760</td><td>$710</td></tr>
+        <tr><td><strong>N-400</strong></td><td>Naturalizasyon — frè redwi (revni ≤ 400% FPG)</td><td>$380</td><td>N/A — papye sèlman</td></tr>
+        <tr><td><strong>I-912</strong></td><td>Demann egzansyon frè</td><td>Gratis</td><td>Gratis</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>*Depi avril 2026, USCIS pèmèt depo I-485 an liy pou yon gwoup limite moun k ap aplike ki baze sou travay a yon to rabè. Moun k ap aplike ki baze sou fanmi — pifò moun ki gen TPS k ap ajiste atravè yon manm fanmi — toujou depoze I-485 sou papye sèlman.</p>
+
+    <p><em>Sèvis biyometrik enkli nan frè I-485 la. Pou pifò lòt fòm yo, biyometrik yo swa enkli oswa USCIS reyitilize biyometrik ki egziste deja san chaj siplemantè.</em></p>
+
+    <h2>Rabè $50 an liy an — ak lè li pa aplike</h2>
+    <p>Pifò fòm fè w sove $50 lè yo depoze atravè myUSCIS.gov. Rabè a aplike a: I-130, N-400, I-90, I-765, I-751, I-140, ak plizyè lòt.</p>
+    <p>Li <strong>pa</strong> aplike a:</p>
+    <ul>
+      <li>Fòm I-485 pou pifò moun k ap depoze (papye sèlman — gade eksepsyon an liy pi wo a pou sèten ka ki baze sou travay)</li>
+      <li>Fòm I-131 depoze poukont li (vwayaj davans — papye sèlman)</li>
+      <li>Frè pwosesis premye klas</li>
+      <li>Nouvo frè estati H.R. 1 yo (gade pi ba)</li>
+    </ul>
+    <p>Depoze an liy anjeneral fè w resevwa resi w pi vit tou — sistèm nan pi efikas pase lapòs.</p>
+
+    <h2>Trik depo an menm tan an pifò moun rate</h2>
+    <p>Si w gen yon <strong>Fòm I-485 k ap tann</strong> (ajisteman estati), ou ka depoze Fòm I-765 (pèmi travay) ak Fòm I-131 (vwayaj davans) an menm tan pou yon pri ki pi ba anpil:</p>
+    <ul>
+      <li>I-765 desann soti nan $520 pou rive nan <strong>$260</strong></li>
+      <li>I-131 enkli <strong>san chaj siplemantè</strong> — li vin fè pati frè I-485 la</li>
+    </ul>
+    <p>Sa se lajan reyèl — plizyè santèn dola nan ekonomi. Anpil moun peye to konplè poukont li pa erè. Mande reprezantan w sou depo an menm tan.</p>
+
+    <h2>Nouvo frè an 2026: sa H.R. 1 ajoute</h2>
+    <p>One Big Beautiful Bill Act, siyen 4 jiyè 2025, kreye plizyè nouvo frè obligatwa ki te antre an vigè 1ye janvye 2026. Sa yo se <strong>separe de</strong> frè depo regilye USCIS yo, yo dwe peye ak yon lòt enstriman peman separe, epi yo pa ka egzante ak Fòm I-912.</p>
+    <div class="blog-table-wrap">
+    <table class="blog-table">
+      <thead><tr><th>Frè</th><th>Sa li kouvri</th><th>Kantite</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Frè anyèl azil</strong></td><td>Peye chak ane pa moun k ap tann azil</td><td>$100/ane (yon ogmantasyon enflasyon $102 anonse men aktyèlman sispann pa yon lòd tribinal)</td></tr>
+        <tr><td><strong>Frè depo azil</strong></td><td>Peye lè w depoze Fòm I-589 pou premye fwa</td><td>$100</td></tr>
+        <tr><td><strong>Siplemantè EAD estati (inisyal)</strong></td><td>Kategori EAD azil, libète kondisyonèl, ak TPS anba H.R. 1</td><td>$560</td></tr>
+        <tr><td><strong>Siplemantè EAD estati (renouvèlman)</strong></td><td>Renouvèlman EAD libète kondisyonèl ak TPS</td><td>$280</td></tr>
+        <tr><td><strong>Frè I-102 ranplasman/inisyal I-94</strong></td><td>Dosye papye I-94 antre/sòti</td><td>$24</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p><em>Nòt: Siplemantè H.R. 1 yo aplike a kategori elijiblite EAD espesifik. Se pa tout moun ki peye yo — ki kategori ou ye a detèmine si yo aplike. Reprezantan w ka di w.</em></p>
+
+    <h2>Egzansyon frè: ki moun ki kalifye ak kijan</h2>
+    <p>USCIS ofri egzansyon frè pou anpil fòm si ou pa ka peye. Pou mande youn, depoze <strong>Fòm I-912 (Demann Egzansyon Frè)</strong> — ki limenm pa gen okenn frè.</p>
+    <p><strong>Ou ka kalifye si:</strong></p>
+    <ul>
+      <li>Revni fwaye w nan oswa anba <strong>150% Gid Povrete Federal yo</strong>, OSWA</li>
+      <li>Ou resevwa yon benefis piblik ki teste sou revni (Medicaid, SNAP, SSI, TANF, oswa menm bagay), OSWA</li>
+      <li>Ou ka montre difikilte finansye</li>
+    </ul>
+    <p><strong>Fòm ki jeneralman aksepte egzansyon frè:</strong> N-400, I-765 (sèten kategori), I-90, ak lòt ankò.</p>
+    <p><strong>Fòm ki jeneralman PA aksepte egzansyon frè:</strong> I-130, I-485, I-140.</p>
+    <p><strong>Frè estati H.R. 1 yo pa ka egzante</strong> ak Fòm I-912, kèlkeswa revni.</p>
+    <p>Si w ap depoze sou papye paske ou bezwen yon egzansyon frè, mete I-912 nan pakè aplikasyon w.</p>
+
+    <h2>Frè N-400 redwi a — ak ki moun ki ka itilize li</h2>
+    <p>Si revni fwaye w nan oswa anba <strong>400% Gid Povrete Federal yo</strong> (yon seyil ki pi wo pase egzansyon konplè a), ou ka kalifye pou yon frè N-400 redwi $380 olye de $760. Opsyon sa a:</p>
+    <ul>
+      <li>Mande depo sou papye (pa gen rabè an liy anplis)</li>
+      <li>Mande dokimantasyon revni fwaye</li>
+      <li>Separe de e anplis de opsyon egzansyon frè konplè a</li>
+    </ul>
+
+    <h2>Sa ki chanje an 2026 konpare ak 2024</h2>
+    <ul>
+      <li>Estrikti frè debaz depi 1ye avril 2024 toujou an vigè — pa gen gwo ogmantasyon nan orè regilye a an 2026</li>
+      <li>Frè H.R. 1 yo antre an vigè 1ye janvye 2026 (frè azil, frè anyèl azil, siplemantè EAD estati); siplemantè EAD yo te monte soti nan $550/$275 pou rive nan $560/$280 anba yon ajisteman enflasyon pita, ki toujou an vigè jan sa ekri a</li>
+      <li>Aktyalizasyon G-1055 29 me 2026 la te ajoute yon frè $24 pou Fòm I-102 (Ranplasman I-94)</li>
+      <li>USCIS pase nan yon <strong>sistèm peman san kach</strong> — pifò kote depo yo pa aksepte chèk ankò</li>
+      <li>Yon <strong>frè entegrite vwayaj konsilè $250</strong> separe te ajoute pou pwosesis vwayaj imigran nan anbasad ak konsila Ozetazini aletranje (sa separe de frè USCIS yo)</li>
+      <li><strong>Ekstansyon otomatik EAD 540-jou a</strong> pou moun k ap renouvle fini — dat limit renouvèlman pèmi travay yo kounye a pi ijan</li>
+    </ul>
+
+    <h2>Toujou verifye anvan ou peye</h2>
+    <p>Frè yo chanje. Yon atik — menm sa a — ka vin demode. Anvan ou soumèt nenpòt aplikasyon:</p>
+    <ol>
+      <li>Ale sou <strong>uscis.gov/g-1055</strong> epi telechaje orè frè Fòm G-1055 aktyèl la</li>
+      <li>Oswa itilize <strong>Kalkilatè Frè USCIS la</strong> sou uscis.gov/fees</li>
+      <li>Swiv enstriksyon peman ki spesifik a fòm ou an — kèk fòm mande peman separe pou chak fòm nan yon pakè; konbine yo ka lakòz yon rejè</li>
+    </ol>
+
+    <div class="blog-cta">
+      <p>W ap depoze yon I-90 pou renouvle oswa ranplase kat vèt ou?</p>
+      <a class="btn-cta" href="green-card-renewal-i90-2026.html">Li gid konplè pou depo I-90 a →</a>
+    </div>
+
+    <p><a href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener"><strong>Jwenn èd imigrasyon gratis oswa a ba pri →</strong></a></p>
+
+  </div>
+  <div class="blog-body" data-blang="es" hidden>
+
+    <div class="blog-disclaimer">
+      Siempre verifique las tarifas contra el calendario oficial de tarifas de USCIS (Formulario G-1055 en uscis.gov/g-1055) antes de pagar. Las tarifas pueden cambiar, y pagar el monto incorrecto — aunque sea por $1 — causa que su solicitud sea rechazada. Este artículo refleja el calendario de tarifas de la edición del 29 de mayo de 2026 del Formulario G-1055 y la One Big Beautiful Bill Act (H.R. 1) firmada el 4 de julio de 2025, verificado al 8 de agosto de 2026.
+    </div>
+
+    <h2>Las tarifas más comunes de un vistazo</h2>
+    <div class="blog-table-wrap">
+    <table class="blog-table">
+      <thead><tr><th>Formulario</th><th>Para qué sirve</th><th>Tarifa en papel</th><th>Tarifa en línea</th></tr></thead>
+      <tbody>
+        <tr><td><strong>I-130</strong></td><td>Petición de Familiar Extranjero</td><td>$675</td><td>$625</td></tr>
+        <tr><td><strong>I-485</strong></td><td>Ajuste de estatus / green card (edades 14–78)</td><td>$1,440</td><td>No disponible para la mayoría de solicitantes*</td></tr>
+        <tr><td><strong>I-485</strong></td><td>Ajuste de estatus (menor de 14 años presentado con un padre)</td><td>$950</td><td>N/A</td></tr>
+        <tr><td><strong>I-765</strong></td><td>Permiso de trabajo (EAD) — independiente</td><td>$520</td><td>$470</td></tr>
+        <tr><td><strong>I-765</strong></td><td>Permiso de trabajo — presentado con I-485 pendiente</td><td>$260</td><td>$260</td></tr>
+        <tr><td><strong>I-131</strong></td><td>Adelanto de libertad condicional / documento de viaje — independiente</td><td>$630</td><td>N/A</td></tr>
+        <tr><td><strong>I-131</strong></td><td>Adelanto de libertad condicional — presentado con I-485 pendiente</td><td colspan="2">Incluido sin cargo adicional, como parte de la tarifa del I-485</td></tr>
+        <tr><td><strong>I-751</strong></td><td>Remover condiciones de la green card (tarjeta de 2 años)</td><td>$750</td><td>$700</td></tr>
+        <tr><td><strong>I-90</strong></td><td>Renovar o reemplazar la green card</td><td>$465</td><td>$415</td></tr>
+        <tr><td><strong>N-400</strong></td><td>Naturalización / ciudadanía</td><td>$760</td><td>$710</td></tr>
+        <tr><td><strong>N-400</strong></td><td>Naturalización — tarifa reducida (ingreso ≤ 400% FPG)</td><td>$380</td><td>N/A — solo en papel</td></tr>
+        <tr><td><strong>I-912</strong></td><td>Solicitud de exención de tarifa</td><td>Gratis</td><td>Gratis</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>*Desde abril de 2026, USCIS ha permitido la presentación en línea del I-485 para un grupo limitado de solicitantes basados en empleo a una tarifa con descuento. Los solicitantes basados en familia — la mayoría de los titulares de TPS que ajustan a través de un familiar — todavía presentan el I-485 solo en papel.</p>
+
+    <p><em>Los servicios biométricos están incluidos en la tarifa del I-485. Para la mayoría de los demás formularios, los datos biométricos están incluidos o USCIS reutiliza datos biométricos existentes sin cargo adicional.</em></p>
+
+    <h2>El descuento de $50 en línea — y cuándo no aplica</h2>
+    <p>La mayoría de los formularios le ahorran $50 al presentarlos a través de myUSCIS.gov. El descuento aplica a: I-130, N-400, I-90, I-765, I-751, I-140, y varios otros.</p>
+    <p><strong>No</strong> aplica a:</p>
+    <ul>
+      <li>El Formulario I-485 para la mayoría de los solicitantes (solo en papel — vea la excepción en línea arriba para ciertos casos basados en empleo)</li>
+      <li>El Formulario I-131 presentado de forma independiente (libertad condicional anticipada — solo en papel)</li>
+      <li>Las tarifas de procesamiento premium</li>
+      <li>Las nuevas tarifas estatutarias de la H.R. 1 (vea abajo)</li>
+    </ul>
+    <p>Presentar en línea también suele obtener su aviso de recibo más rápido — el sistema es más eficiente que el correo.</p>
+
+    <h2>El truco de presentación conjunta que la mayoría pasa por alto</h2>
+    <p>Si tiene un <strong>Formulario I-485 pendiente</strong> (ajuste de estatus), puede presentar el Formulario I-765 (permiso de trabajo) y el Formulario I-131 (libertad condicional anticipada) al mismo tiempo por un costo dramáticamente menor:</p>
+    <ul>
+      <li>El I-765 baja de $520 a <strong>$260</strong></li>
+      <li>El I-131 se incluye <strong>sin cargo adicional</strong> — está incluido en la tarifa del I-485</li>
+    </ul>
+    <p>Esto es dinero real — cientos de dólares en ahorros. Muchas personas pagan la tarifa completa independiente por error. Pregúntele a su representante sobre presentar de forma conjunta.</p>
+
+    <h2>Nuevas tarifas en 2026: lo que agregó la H.R. 1</h2>
+    <p>La One Big Beautiful Bill Act, firmada el 4 de julio de 2025, creó varias nuevas tarifas obligatorias que entraron en vigor el 1 de enero de 2026. Estas son <strong>separadas</strong> de las tarifas regulares de USCIS, deben pagarse con un instrumento de pago separado, y no pueden exentarse con el Formulario I-912.</p>
+    <div class="blog-table-wrap">
+    <table class="blog-table">
+      <thead><tr><th>Tarifa</th><th>Qué cubre</th><th>Monto</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tarifa anual de asilo</strong></td><td>Pagada cada año por solicitantes de asilo pendientes</td><td>$100/año (se ha anunciado un aumento por inflación a $102 pero actualmente está suspendido por orden judicial)</td></tr>
+        <tr><td><strong>Tarifa de presentación de asilo</strong></td><td>Pagada al presentar por primera vez el Formulario I-589</td><td>$100</td></tr>
+        <tr><td><strong>Cargo adicional estatutario de EAD (inicial)</strong></td><td>Categorías de EAD de asilo, libertad condicional y basadas en TPS bajo la H.R. 1</td><td>$560</td></tr>
+        <tr><td><strong>Cargo adicional estatutario de EAD (renovación)</strong></td><td>Renovaciones de EAD de libertad condicional y TPS</td><td>$280</td></tr>
+        <tr><td><strong>Tarifa de reemplazo/inicial del I-94 vía I-102</strong></td><td>Registro en papel de llegada/salida I-94</td><td>$24</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p><em>Nota: Los cargos adicionales de la H.R. 1 aplican a categorías específicas de elegibilidad de EAD. No todos los pagan — la categoría en la que usted se encuentre determina si aplican. Su representante puede indicárselo.</em></p>
+
+    <h2>Exenciones de tarifa: quién califica y cómo</h2>
+    <p>USCIS ofrece exenciones de tarifa para muchos formularios si no puede pagar. Para solicitar una, presente el <strong>Formulario I-912 (Solicitud de Exención de Tarifa)</strong> — que en sí no tiene costo.</p>
+    <p><strong>Puede calificar si:</strong></p>
+    <ul>
+      <li>El ingreso de su hogar está en o por debajo del <strong>150% de las Guías Federales de Pobreza</strong>, O</li>
+      <li>Recibe un beneficio público basado en ingresos (Medicaid, SNAP, SSI, TANF, o similar), O</li>
+      <li>Puede demostrar dificultad financiera</li>
+    </ul>
+    <p><strong>Formularios que generalmente aceptan exenciones de tarifa:</strong> N-400, I-765 (ciertas categorías), I-90, y otros.</p>
+    <p><strong>Formularios que generalmente NO aceptan exenciones de tarifa:</strong> I-130, I-485, I-140.</p>
+    <p><strong>Las tarifas estatutarias de la H.R. 1 no pueden exentarse</strong> con el Formulario I-912, sin importar el ingreso.</p>
+    <p>Si está presentando en papel porque necesita una exención de tarifa, incluya el I-912 con su paquete de solicitud.</p>
+
+    <h2>La tarifa reducida del N-400 — y quién puede usarla</h2>
+    <p>Si el ingreso de su hogar está en o por debajo del <strong>400% de las Guías Federales de Pobreza</strong> (un umbral más alto que la exención completa), puede calificar para una tarifa reducida del N-400 de $380 en lugar de $760. Esta opción:</p>
+    <ul>
+      <li>Requiere presentación en papel (sin descuento en línea adicional)</li>
+      <li>Requiere documentación del ingreso del hogar</li>
+      <li>Es separada y adicional a la opción de exención de tarifa completa</li>
+    </ul>
+
+    <h2>Qué cambió en 2026 frente a 2024</h2>
+    <ul>
+      <li>La estructura de tarifas base del 1 de abril de 2024 sigue vigente — no hay un aumento importante al calendario regular en 2026</li>
+      <li>Las tarifas de la H.R. 1 entraron en vigor el 1 de enero de 2026 (tarifa de asilo, tarifa anual de asilo, cargos adicionales estatutarios de EAD); los cargos de EAD subieron de $550/$275 a $560/$280 bajo un ajuste de inflación posterior, también vigente al momento de escribir esto</li>
+      <li>La actualización del G-1055 del 29 de mayo de 2026 agregó una tarifa de $24 para el Formulario I-102 (Reemplazo de I-94)</li>
+      <li>USCIS pasó a un <strong>sistema de pago sin efectivo</strong> — los pagos con cheque ya no se aceptan en la mayoría de los lugares de presentación</li>
+      <li>Se agregó una <strong>tarifa separada de integridad de visa consular de $250</strong> para el procesamiento de visas de inmigrante en embajadas y consulados de EE. UU. en el extranjero (esto es separado de las tarifas de USCIS)</li>
+      <li>La <strong>extensión automática de EAD de 540 días</strong> para solicitantes de renovación ha terminado — los plazos de renovación del permiso de trabajo ahora son más urgentes</li>
+    </ul>
+
+    <h2>Siempre verifique antes de pagar</h2>
+    <p>Las tarifas cambian. Un artículo — incluso este — puede quedar desactualizado. Antes de enviar cualquier solicitud:</p>
+    <ol>
+      <li>Vaya a <strong>uscis.gov/g-1055</strong> y descargue el calendario de tarifas actual del Formulario G-1055</li>
+      <li>O use la <strong>Calculadora de Tarifas de USCIS</strong> en uscis.gov/fees</li>
+      <li>Siga las instrucciones de pago específicas de su formulario — algunos formularios requieren pagos separados para cada formulario en un paquete; combinarlos puede causar un rechazo</li>
+    </ol>
+
+    <div class="blog-cta">
+      <p>¿Va a presentar un I-90 para renovar o reemplazar su green card?</p>
+      <a class="btn-cta" href="green-card-renewal-i90-2026.html">Lea la guía completa de presentación del I-90 →</a>
+    </div>
+
+    <p><a href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener"><strong>Encuentre ayuda migratoria gratuita o de bajo costo →</strong></a></p>
+
+  </div>
+
+  <div class="blog-disclaimer" data-blang="en">
     This article is general information, not legal or financial advice. Fees change without notice — the facts here were accurate as of publication (August 8, 2026). Always verify current fees at uscis.gov/g-1055 before filing.
+  </div>
+  <div class="blog-disclaimer" data-blang="ht" hidden>
+    Atik sa a se enfòmasyon jeneral, se pa konsèy legal oswa finansye. Frè yo chanje san avètisman — enfòmasyon isit la te egzat nan moman piblikasyon (8 out 2026). Toujou verifye frè aktyèl yo sou uscis.gov/g-1055 anvan ou depoze.
+  </div>
+  <div class="blog-disclaimer" data-blang="es" hidden>
+    Este artículo es información general, no asesoría legal o financiera. Las tarifas cambian sin previo aviso — la información aquí era precisa al momento de la publicación (8 de agosto de 2026). Siempre verifique las tarifas actuales en uscis.gov/g-1055 antes de presentar.
   </div>
 
   <div class="blog-sources">
@@ -220,6 +479,23 @@
 
 
 </div>
+
+<script>
+(function(){
+  function applyBlogLang(lang) {
+    document.querySelectorAll('.blog-lang-toggle .lang-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.blang === lang); });
+    document.querySelectorAll('[data-blang]').forEach(function(el){ el.hidden = el.getAttribute('data-blang') !== lang; });
+  }
+  window.setBlogLang = function(lang) {
+    applyBlogLang(lang);
+    try { localStorage.setItem('lang', JSON.stringify(lang)); } catch(e) {}
+  };
+  var saved = 'en';
+  try { var v = localStorage.getItem('lang'); if (v) saved = JSON.parse(v); } catch(e) {}
+  if (saved !== 'ht' && saved !== 'es') saved = 'en';
+  applyBlogLang(saved);
+})();
+</script>
 
 </body>
 </html>

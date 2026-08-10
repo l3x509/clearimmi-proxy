@@ -1030,6 +1030,9 @@
   .blog-table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: 14px; }
   .blog-table th, .blog-table td { border: 1px solid rgba(255,255,255,.12); padding: 8px 10px; text-align: left; vertical-align: top; }
   .blog-table th { background: rgba(255,255,255,.06); color: var(--heading); }
+  .blog-poster { width: 100%; height: auto; border-radius: 12px; display: block; margin: 4px 0 20px; border: 1px solid rgba(255,255,255,.08); }
+  .blog-lang-toggle { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 18px; }
+  .blog-lang-toggle .lang-btn { font-family: 'DM Sans', sans-serif; }
   .blog-cta {
     background: var(--gold-glow);
     border: 1.5px solid rgba(200,146,42,.35);
