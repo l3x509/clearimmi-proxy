@@ -1,0 +1,13 @@
+{
+  "name": "clearimmi-blog-build",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Build script that renders blog/posts/*.md (written via the /admin/ panel) into static HTML matching the site's hand-authored blog post template. The rest of this site has zero build tooling on purpose — this is scoped narrowly to the blog pipeline only.",
+  "type": "commonjs",
+  "scripts": {
+    "build:blog": "node scripts/build-blog.js"
+  },
+  "dependencies": {
+    "marked": "^13.0.0"
+  }
+}

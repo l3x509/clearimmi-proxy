@@ -293,6 +293,62 @@ JS scoped to that one page only — it toggles a `.filtered-out` class
 Individual post pages stay fully static with no JS dependency, per the
 SEO rationale above.
 
+### Blog build pipeline (`/admin/`)
+
+The 11 posts above are hand-authored HTML and stay that way — nothing
+below touches them. Separately, there's a `/admin/` panel (no login
+beyond a pasted GitHub token, no backend) for writing **new** posts
+without hand-authoring HTML:
+
+1. `/admin/` commits a markdown file to `blog/posts/<slug>.md` via the
+   GitHub Contents API (see the frontmatter format in
+   `scripts/build-blog.js`'s header comment, or any file in
+   `blog/posts/` once one exists).
+2. `.github/workflows/build-blog.yml` triggers on that push, runs
+   `npm run build:blog` (`scripts/build-blog.js`), which renders
+   `blog/<slug>.html`, generates a branded fallback poster SVG if no
+   `featured_image` was set, and commits the result back to `main`.
+3. Hostinger picks up that commit like any other push.
+
+**This site is otherwise zero-build-step on purpose** — `package.json`
+exists only to install `marked` for this one script; nothing else in
+the site depends on Node or a build step.
+
+**Why the 11 hand-authored posts can't be broken by this**:
+`blog/index.html` and `sitemap.xml` each have a
+`<!-- BUILD:BLOG-POSTS:START -->...<!-- BUILD:BLOG-POSTS:END -->`
+marker pair. `scripts/build-blog.js` only ever replaces the text
+between those markers, built only from `blog/posts/*.md` — it never
+reads or reasons about anything outside them, and hard-fails instead
+of falling back to full-file regeneration if the markers are missing.
+Separately, `scripts/generated-posts.json` is a manifest of slugs the
+script owns; if a new post's slug isn't in that manifest but
+`blog/<slug>.html` already exists, the build hard-fails rather than
+overwriting it — this is what stops an admin-created post from ever
+colliding with one of the 11 hand-authored files by slug.
+
+**Admin-created posts are English-only** — no `.blog-lang-toggle`, no
+`data-blang` tripling, no toggle script. If one needs translations
+later, add that structure by hand the same way the 11 originals got
+theirs (see "Blog post translations" above) — the build script won't
+regenerate a post once it exists outside a fresh `blog/posts/*.md`
+change, so hand-edits to a generated file are safe until its source
+markdown changes again.
+
+Adding a genuinely new topic: edit the `TOPIC_LABELS` map in
+`scripts/build-blog.js` **and** the `TOPICS` array in
+`admin/js/admin.js` **and** the taxonomy list above — all three must
+stay in sync, and the admin panel deliberately has no free-text topic
+field so a new topic can't be introduced silently with a misspelled
+slug.
+
+Local testing (there's no way to trigger the real Action from outside
+GitHub): drop a `.md` file in `blog/posts/`, run `npm run build:blog`,
+and check `git diff blog/index.html sitemap.xml` shows only an
+insertion inside the marker block — any deletion or reordering there
+means something is wrong. Delete the test file and rerun before
+committing.
+
 ## Content safety rules (apply everywhere, not just the glossary)
 
 - No AI fabrication of fees, phone numbers, deadlines, or requirements —
